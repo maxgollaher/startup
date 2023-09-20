@@ -6,8 +6,6 @@
 
 It's a hot fall afternoon, and unfortunately you and your friends got into an argument while rock climbing over who was the best climber. Well don't worry, because with Climber's Crag, you can log your climbs and compare your stats with a friend! Now you can **PROVE** to your friend that you are a better climber.
 
-### Sketches
-
 ### Key Features
 
 - Secure login using HTTPS
@@ -17,7 +15,6 @@ It's a hot fall afternoon, and unfortunately you and your friends got into an ar
 - User can edit and delete logged climbs after they are created.
 - Leaderboards can be focused/sorted to view stats in an ascending/descending rank.
 
-
 ### Technologies
 
 - **HTML:** Uses HTML to structure the webpage. There will be a login page, a page to collect data from the user, and a page to display different statistics.
@@ -26,5 +23,21 @@ It's a hot fall afternoon, and unfortunately you and your friends got into an ar
 - **Authentication:** Register and login users. Storing user information in a secure database.
 - **Database data:** User data will be stored in the database, such as climbs logged, types of climbs, etc.
 - **WebSocket data:** WebSockets, such as GoogleMaps will be used to collect information like the location of logged climbs.
+
+### Sketches
+
+Home page:
+![home page](images/home-page.png)
+
+Login popout:
+![login popout](images/login.png)
+
+Page to add climbing information:
+![add climb page](images/add-climb.png)
+
+Leaderboard page:
+![leaderboard page](images/leaderboards.png)
+Note: there will be a user page that is very similar to the leaderboard page, except the table will be populated with the specific user's data.
+
 
 
