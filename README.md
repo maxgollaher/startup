@@ -39,5 +39,15 @@ Leaderboard page:
 ![leaderboard page](images/leaderboards.png)
 Note: there will be a user page that is very similar to the leaderboard page, except the table will be populated with the specific user's data.
 
+## HTML Deliverable
 
+This update created an HTML frame to start the website.
+
+- [x] **HTML pages** - There are four main HTML pages, including a home/login page, profile, leaderboards, and a page to add climb data.
+- [x] **Links** - There are navigation links that link to the separate pages, including a temporary link to a registration form. This will eventually be replaced with a pop-up form.
+- [x] **Text** - There are titles on the different pages as well as text to help describe data placeholders.
+- [x] **Images** - There is a logo image, more images will be added later in the CSS deliverable as background images. 
+- [x] **Login** - Input box and submit button for login. There is also a placeholder for a register form as well. All login/form buttons currently link to different points on the website (i.e login links to `profile.html` and register links to `index.html` to login.)
+- [x] **Database** - There are table placeholders on `profile.html` and `leaderboards.html` to represent where the database will be shown.
+- [x] **WebSocket** - There is an image placeholder on `add-ascent.html` to represent communication with GoogleMaps to collect location data on entered climbs.
 
