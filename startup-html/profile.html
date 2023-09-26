@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Profile</title> <!-- add JS to check profile name -->
+    <!-- <link href="styles/styles.css" rel="stylesheet"> -->
+</head>
+
+<body>
+    <header>
+        <img src="images/logo.png" alt="logo" height=50px>
+        <a href="index.html">Home</a>
+        <a href="#">Profile</a>
+        <a href="leaderboards.html">Leaderboards</a>
+    </header>
+
+    <main>
+        <h2>Welcome %username%!</h2>
+
+        <div>
+            <h3>Overall Stats</h3>
+            <table>
+                <tr>
+                    <th>Top Send</th>
+                    <th>Top Flash</th>
+                    <th>Top Onsight</th>
+                    <th>Total Ascents</th>
+                </tr>
+                <tr>
+                    <td>%top-send%</td>
+                    <td>%top-flash%</td>
+                    <td>%top-onsight%</td>
+                    <td>%total-ascents%</td>
+                </tr>
+            </table>
+        </div>
+
+        <div>
+            <h3>Climbing Log</h3>
+            <p><a href="add-ascent.html">Add Ascent</a></p>
+            <select id="group" name="varGroup">
+                <option selected>date</option>
+                <option>name</option>
+                <option>grade</option>
+                <option>type of send</option>
+            </select>
+            <select id="asc-desc" name="varOrder">
+                <option selected>ascending</option>
+                <option>descending</option>
+            </select>
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Grade</th>
+                    <th>Type of Send</th>
+                </tr>
+                <tr>
+                    <td>table</td>
+                    <td>table</td>
+                    <td>table</td>
+                    <td>table</td>
+                </tr>
+                <tr>
+                    <td>HTML</td>
+                    <td>HTML</td>
+                    <td>CSS</td>
+                    <td>JavaScript</td>
+                </tr>
+                <tr>
+                    <td>HTML</td>
+                    <td>HTML</td>
+                    <td>CSS</td>
+                    <td>JavaScript</td>
+                </tr>
+            </table>
+        </div>
+    </main>
+
+</body>
+
+</html>

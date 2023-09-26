@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Profile</title> <!-- add JS to check profile name -->
+    <!-- <link href="styles/styles.css" rel="stylesheet"> -->
+</head>
+
+<body>
+    <header>
+        <img src="images/logo.png" alt="logo" height=50px>
+        <a href="index.html">Home</a>
+        <a href="profile.html">Profile</a>
+        <a href="leaderboards.html">Leaderboards</a>
+    </header>
+
+    <main>
+        <h2>Add a climb!</h2>
+
+        <form style="width: 90%;">
+            <div style="width: 30%; float: left; text-align: left;">
+                <p>
+                    <label for="name">Name:</label>
+                    <input type="name" placeholder="name" />
+                </p>
+                <p>
+                    <label for="grade">Grade:</label>
+                    <select id="grade" name="varGrade">
+                        <option>5.2</option>
+                        <option>5.3</option>
+                        <option>5.4</option>
+                        <option>5.5</option>
+                        <option>5.6</option>
+                        <option selected>5.7</option>
+                        <option>5.8</option>
+                        <option>5.9</option>
+                        <option>5.10a</option>
+                        <option>5.10b</option>
+                        <option>5.10c</option>
+                        <option>5.10d</option>
+                        <option>5.11a</option>
+                        <option>5.11b</option>
+                        <option>5.11c</option>
+                        <option>5.11d</option>
+                        <option>5.12a</option>
+                        <option>5.12b</option>
+                        <option>5.12c</option>
+                        <option>5.12d</option>
+                        <option>5.13a</option>
+                        <option>5.13b</option>
+                        <option>5.13c</option>
+                        <option>5.13d</option>
+                        <option>5.14a</option>
+                        <option>5.14b</option>
+                        <option>5.14c</option>
+                        <option>5.14d</option>
+                        <option>5.15a</option>
+                        <option>5.15b</option>
+                        <option>5.15c</option>
+                        <option>5.15d</option>
+                    </select>
+                </p>
+                <p>
+                    <label for="type">Type:</label>
+                    <select id="type" name="varType">
+                        <option>Send</option>
+                        <option>Flash</option>
+                        <option selected>Onsight</option>
+                    </select>
+                </p>
+                <p>
+                    <label for="date">Date:</label>
+                    <input type="date" />
+                </p>
+            <input type="submit" value="Add Climb">
+
+
+
+            </div>
+
+            <div style="width: 60; float:right;">
+                <p>
+                    <label for="location">Location:</label>
+                </p>
+                <img src="images/GoogleMap.png" height="400px">
+
+
+            </div>
+            <br style="clear:both;" />
+
+        </form>
+    </main>
+</body>
+
+</html>

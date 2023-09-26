@@ -3,7 +3,7 @@ body {
     background-image: linear-gradient(to right, rgba(255, 0, 0, 0), rgb(122, 193, 214));
 }
 
-nav {
+header {
     position: fixed;
     left: 0;
     top: 0;
@@ -23,7 +23,7 @@ footer {
     text-align: center;
 }
 
-nav a,
+header a,
 footer a {
     float: left;
     color: #f2f2f2;
@@ -31,11 +31,18 @@ footer a {
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
+    font-weight: bolder;
 }
 
-nav a:hover, footer a:hover {
+header a:hover,
+footer a:hover {
     background-color: #f2f2f2;
     color: #333;
+}
+
+header img {
+    float: left;
+    height: 45px;
 }
 
 
@@ -49,6 +56,7 @@ main {
 h1 {
     text-align: center;
     font-size: 50px;
+    font-weight: bolder;
     margin: 15px;
 }
 
@@ -74,4 +82,8 @@ form button {
     padding: 15px;
     background-color: #333;
     color: #f2f2f2;
+}
+
+table, th, td {
+    border: 1px solid #333;
 }
