@@ -1,89 +1,23 @@
-body {
-    font-family: 'Oxygen', sans-serif;
-    background-image: linear-gradient(to right, rgba(255, 0, 0, 0), rgb(122, 193, 214));
-}
-
 header {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    background-color: #333;
-    color: white;
-    text-align: center;
+    flex: 0 80px;
+    background: hsl(223, 57%, 38%);
 }
 
 footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: #333;
-    color: white;
-    text-align: center;
+    flex: 0 30px;
+    background: hsl(180, 10%, 10%);
 }
-
-header a,
-footer a {
-    float: left;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-    font-weight: bolder;
-}
-
-header a:hover,
-footer a:hover {
-    background-color: #f2f2f2;
-    color: #333;
-}
-
-header img {
-    float: left;
-    height: 45px;
-}
-
 
 main {
-    position: relative;
-    top: 50px;
-    left: 0px;
-    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
 }
 
-h1 {
-    text-align: center;
-    font-size: 50px;
-    font-weight: bolder;
-    margin: 15px;
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    height: 100vh;
 }
 
-.subtitle {
-    text-align: center;
-    font-size: 17px;
-    margin: 15px;
-}
-
-form {
-    position: relative;
-    background: #fff;
-    border-radius: 30px;
-    width: 360px;
-    margin: 0 auto 20px;
-    padding: 45px;
-    text-align: center;
-}
-
-form button {
-    text-transform: uppercase;
-    width: 100%;
-    padding: 15px;
-    background-color: #333;
-    color: #f2f2f2;
-}
-
-table, th, td {
-    border: 1px solid #333;
-}
