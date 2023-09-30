@@ -1,80 +1,118 @@
 <!DOCTYPE html>
 
 <head>
-    <title>Profile</title> <!-- add JS to check profile name -->
-    <link href="styles/styles.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="./css/styles.css" rel="stylesheet">
 </head>
 
 <body>
-    <header>
-        <img src="images/logo.png" alt="logo" height=50px>
-        <a href="index.html">Home</a>
-        <a href="#">Profile</a>
-        <a href="leaderboards.html">Leaderboards</a>
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">
+                    <h1>Climber's Crag</h1>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="leaderboards.html">Leaderboards</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </header>
 
-    <main>
-        <h2>Welcome %username%!</h2>
+    <main class="bg-grad">
+        <div class="container-fluid container">
+            <div class="container">
+                <div class="box box-v-center">
+                    <h2>Welcome %username%</h2>
+                </div>
+                <div class="box">
+                    <h3>Overall Stats</h3>
+                    <table class="table table-striped align-middle">
+                        <tr>
+                            <th>Top Send</th>
+                            <th>Top Flash</th>
+                            <th>Top Onsight</th>
+                            <th>Total Ascents</th>
+                        </tr>
+                        <tr>
+                            <td>%top-send%</td>
+                            <td>%top-flash%</td>
+                            <td>%top-onsight%</td>
+                            <td>%total-ascents%</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
 
-        <div>
-            <h3>Overall Stats</h3>
-            <table>
-                <tr>
-                    <th>Top Send</th>
-                    <th>Top Flash</th>
-                    <th>Top Onsight</th>
-                    <th>Total Ascents</th>
-                </tr>
-                <tr>
-                    <td>%top-send%</td>
-                    <td>%top-flash%</td>
-                    <td>%top-onsight%</td>
-                    <td>%total-ascents%</td>
-                </tr>
-            </table>
-        </div>
+            <div class="container-fluid container">
+                <div class="box">
+                    <h3>Climbing Log</h3>
+                    <p><a href="add-ascent.html">Add Ascent</a></p>
+                    <select class="form-select" aria-label="Climb type">
+                        <option selected>date</option>
+                        <option>name</option>
+                        <option>grade</option>
+                        <option>type of send</option>
+                    </select>
 
-        <div>
-            <h3>Climbing Log</h3>
-            <p><a href="add-ascent.html">Add Ascent</a></p>
-            <select id="group" name="varGroup">
-                <option selected>date</option>
-                <option>name</option>
-                <option>grade</option>
-                <option>type of send</option>
-            </select>
-            <select id="asc-desc" name="varOrder">
-                <option selected>ascending</option>
-                <option>descending</option>
-            </select>
-            <table>
-                <tr>
-                    <th>Date</th>
-                    <th>Name</th>
-                    <th>Grade</th>
-                    <th>Type of Send</th>
-                </tr>
-                <tr>
-                    <td>table</td>
-                    <td>table</td>
-                    <td>table</td>
-                    <td>table</td>
-                </tr>
-                <tr>
-                    <td>HTML</td>
-                    <td>HTML</td>
-                    <td>CSS</td>
-                    <td>JavaScript</td>
-                </tr>
-                <tr>
-                    <td>HTML</td>
-                    <td>HTML</td>
-                    <td>CSS</td>
-                    <td>JavaScript</td>
-                </tr>
-            </table>
+                    <select class="form-select" aria-label="Asc/Desc">
+                        <option selected>ascending</option>
+                        <option>descending</option>
+                    </select>
+
+                    <table class="table table-striped table-hover align-middle">
+                        <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                            <th>Grade</th>
+                            <th>Type of Send</th>
+                        </tr>
+                        <tr>
+                            <td>table</td>
+                            <td>table</td>
+                            <td>table</td>
+                            <td>table</td>
+                        </tr>
+                        <tr>
+                            <td>HTML</td>
+                            <td>HTML</td>
+                            <td>CSS</td>
+                            <td>JavaScript</td>
+                        </tr>
+                        <tr>
+                            <td>HTML</td>
+                            <td>HTML</td>
+                            <td>CSS</td>
+                            <td>JavaScript</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
         </div>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 
 </body>
 
