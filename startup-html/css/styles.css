@@ -28,6 +28,7 @@ main {
     border-radius: 0.5rem;
     padding: 1rem;
     background-color: white;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
 .box-v-center {
@@ -55,7 +56,8 @@ main {
 }
 
 .bg-grad {
-    background: linear-gradient(to right, #33ccff 0%, #ff99cc 100%);
+    background-color: #0093E9;
+    background-image: linear-gradient(225deg, #0093E9 0%, #80D0C7 100%);
     height: 100vh;
     background-size: cover;
     overflow: auto;
