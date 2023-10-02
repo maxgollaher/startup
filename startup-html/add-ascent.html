@@ -1,106 +1,109 @@
 <!DOCTYPE html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Add Ascent</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link href="./css/styles.css" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Add Ascent</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+  <link href="./css/styles.css" rel="stylesheet" />
 </head>
 
 <body>
-    <header class="sticky-top">
-        <nav class="navbar navbar-expand-lg bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="index.html">
-                    <h1>Climber's Crag</h1>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="profile.html">Profile</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="leaderboards.html">Leaderboards</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <main class="bg-grad">
-        <div class="container-fluid container">
-            <div class="container">
-                <div class="box box-v-center">
-                    <h2>Add an Ascent</h2>
-                </div>
-                <form class="box">
-                    <div class="mb-3">
-                        <label for="inputName" class="form-label">Name</label>
-                        <input type="name" class="form-control" id="inputName">
-                    </div>
-                    <div class="mb-3">
-                        <label for="inputGrade" class="form-label">Grade</label>
-                        <select class="form-select" id="inputGrade" aria-label="Climb Grade">
-                            <option>5.6</option>
-                            <option>5.7</option>
-                            <option>5.8</option>
-                            <option selected>5.9</option>
-                            <option>5.10a</option>
-                            <option>5.10b</option>
-                            <option>5.10c</option>
-                            <option>5.10d</option>
-                            <option>5.11a</option>
-                            <option>5.11b</option>
-                            <option>5.11c</option>
-                            <option>5.11d</option>
-                            <option>5.12a</option>
-                            <option>5.12b</option>
-                            <option>5.12c</option>
-                            <option>5.12d</option>
-                            <option>5.13a</option>
-                            <option>5.13b</option>
-                            <option>5.13c</option>
-                            <option>5.13d</option>
-                            <option>5.14a</option>
-                            <option>5.14b</option>
-                            <option>5.14c</option>
-                            <option>5.14d</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="inputSend" class="form-label">Type of Send</label>
-                        <select class="form-select" id="inputSend" aria-label="Climb Send">
-                            <option selected>Flash</option>
-                            <option>Onsight</option>
-                            <option>Fell/Rested</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-
-            <div class="container">
-                <div class="box">
-                    <h3>Location</h3>
-                    <img src="images/GoogleMap.png" alt="locationPlaceholder" style="object-fit: cover; width: 80%;"">
-                </div>
-            </div>
+  <header class="sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">
+          <h1>Climber's Crag</h1>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="profile.html">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="leaderboards.html">Leaderboards</a>
+            </li>
+          </ul>
         </div>
-    </main>
+      </div>
+    </nav>
+  </header>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+  <main class="bg-grad">
+    <div class="container-fluid container">
+      <div class="container">
+        <div class="box box-v-center">
+          <h2>Add an Ascent</h2>
+        </div>
+        <form class="box">
+          <div class="mb-3">
+            <label for="inputName" class="form-label">Name</label>
+            <input type="name" class="form-control" id="inputName" data-bs-theme="dark" />
+          </div>
+          <div class="mb-3">
+            <label for="inputGrade" class="form-label">Grade</label>
+            <select class="form-select" data-bs-theme="dark" id="inputGrade" aria-label="Climb Grade">
+              <option>5.6</option>
+              <option>5.7</option>
+              <option>5.8</option>
+              <option selected>5.9</option>
+              <option>5.10a</option>
+              <option>5.10b</option>
+              <option>5.10c</option>
+              <option>5.10d</option>
+              <option>5.11a</option>
+              <option>5.11b</option>
+              <option>5.11c</option>
+              <option>5.11d</option>
+              <option>5.12a</option>
+              <option>5.12b</option>
+              <option>5.12c</option>
+              <option>5.12d</option>
+              <option>5.13a</option>
+              <option>5.13b</option>
+              <option>5.13c</option>
+              <option>5.13d</option>
+              <option>5.14a</option>
+              <option>5.14b</option>
+              <option>5.14c</option>
+              <option>5.14d</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="inputSend" class="form-label">Type of Send</label>
+            <select class="form-select" data-bs-theme="dark" id="inputSend" aria-label="Climb Send">
+              <option selected>Flash</option>
+              <option>Onsight</option>
+              <option>Fell/Rested</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="inputDate" class="form-label">Date</label>
+            <input type="date" class="form-control" data-bs-theme="dark" id="inputDate" />
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+
+      <div class="container">
+        <div class="box">
+          <h3>Location</h3>
+          <img src="images/GoogleMap.png" alt="locationPlaceholder" style="object-fit: cover; width: 100%;"">
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script
+    src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+            </script>
 </body>
-
-</html>
