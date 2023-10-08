@@ -67,8 +67,8 @@ header {
 .bg-image {
   position: relative;
   background-image: url(../images/background.jpg), linear-gradient(225deg, rgba(0, 23, 45, 0.8),
-    rgba(0, 38, 77, 0.8));
-  background-blend-mode:  multiply;
+      rgba(0, 38, 77, 0.8));
+  background-blend-mode: multiply;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -91,14 +91,16 @@ header {
 
 .container {
   display: grid;
-  margin: 0 auto;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   grid-auto-rows: auto;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  height: 85vh;
   overflow: show;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  height: fit-content;
+  padding-bottom: 90px;
 }
 
 .container-sm {
