@@ -106,7 +106,7 @@ header {
   align-items: center;
   overflow: visible;
   position: absolute;
-  height: max-content;
+  height: minmax(max-content, 100vh);
   top: 10px;
   left: 0;
   right: 0;
