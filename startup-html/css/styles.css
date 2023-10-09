@@ -11,24 +11,25 @@ body {
 }
 
 main {
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex: 1;
 }
 
 header {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
 }
 
-/* footer that is underneath the main content body, but not visible until scrolling to the bottom */
-.footer {
+.d-grid {
+  display: grid;
+  grid-template-columns: 1fr;
   width: 100%;
-  height: 100px;
-  background-color: #343a40;
-  color: #f8f9fa;
+}
 
+.align-end {
+  align-self: end!important;
 }
 
 .box {
@@ -105,8 +106,8 @@ header {
   justify-content: center;
   align-items: center;
   overflow: visible;
-  position: absolute;
-  height: minmax(max-content, 100vh);
+  position: relative;
+  height: max-content;
   top: 10px;
   left: 0;
   right: 0;
