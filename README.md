@@ -22,21 +22,13 @@ It's a hot fall afternoon, and unfortunately, you and your friends got into an a
 - **JavaScript:** For login and displaying statistics.
 - **Authentication:** Register and login users. Storing user information in a secure database.
 - **Database data:** User data will be stored in the database, such as climbs logged, types of climbs, etc.
-- **WebSocket data:** WebSockets, such as GoogleMaps, will be used to collect information like the location of logged climbs. Leaderboards will also update in real time when users input new data.
+- **WebSocket data:** WebSockets, such as GoogleMaps, will be used to collect information like the location of logged climbs. Leaderboards will also update in real-time when users input new data.
 
 ### Sketches
+| Home Page             | Login Popout         | Add Climb Page         | Leaderboard Page      |
+|-----------------------|----------------------|------------------------|------------------------|
+| ![Home Page](images/home-page.png) | ![Login Popout](images/login.png) | ![Add Climb Page](images/add-climb.png) | ![Leaderboard Page](images/leaderboards.png) |
 
-Home page:
-![home page](images/home-page.png)
-
-Login popout:
-![login popout](images/login.png)
-
-Page to add climbing information:
-![add climb page](images/add-climb.png)
-
-Leaderboard page:
-![leaderboard page](images/leaderboards.png)
 Note: there will be a user page very similar to the leaderboard page, except the table will be populated with the specific user's data.
 
 ## HTML Deliverable
