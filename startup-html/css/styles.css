@@ -22,6 +22,15 @@ header {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
 }
 
+/* footer that is underneath the main content body, but not visible until scrolling to the bottom */
+.footer {
+  width: 100%;
+  height: 100px;
+  background-color: #343a40;
+  color: #f8f9fa;
+
+}
+
 .box {
   margin: 0.5rem 0;
   border: thin solid #343a40;
@@ -93,15 +102,18 @@ header {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   grid-auto-rows: auto;
-  overflow: show;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
   position: absolute;
+  height: max-content;
   top: 10px;
   left: 0;
   right: 0;
   bottom: 10px;
-  height: fit-content;
-  padding-bottom: 90px;
+  padding-bottom: 50px;
 }
+
 
 .container-sm {
   display: grid;
