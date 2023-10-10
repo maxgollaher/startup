@@ -47,8 +47,8 @@ This update created an HTML frame to start the website.
 
 This update added CSS and Bootstrap styles to the website.
 
-- [x] **Header, footer, and main content body** - Each page has a header and main content body. The main index.html is the only page with a footer because of styling choices.
-- [x] **Navigation elements** - Each page has a navbar that links to the other pages. The add-ascent page is accessed through a button on the profile page.
+- [x] **Header, footer, and main content body** - Each page has a header and main content body. The index.html footer is fixed while other pages have the footer at the end of the main div.
+- [x] **Navigation elements** - Each page has a navbar that links to the other pages. The add-ascent page is accessed through a button on the profile page. Currently, buttons that will require JS to add a climb, login, or register do not link to other pages. This will be added when the database is set up.
 - [x] **Responsive to window resizing** - All pages respond to window sizing, formatting the grids correctly. The background also responds to the size of the content, filling the whole screen.
 - [x] **Application elements** - Whitespace is utilized to prevent the page from feeling crowded.
 - [x] **Application text content** - Fonts are consistent throughtout the site.
