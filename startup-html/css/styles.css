@@ -29,8 +29,8 @@ header {
 }
 
 .align-end {
-  align-self: end!important;
-  margin-bottom: 0!important;
+  align-self: end !important;
+  margin-bottom: 0 !important;
 }
 
 .box {
@@ -77,8 +77,8 @@ header {
 
 .bg-image {
   position: relative;
-  background-image: url(../images/background.jpg), linear-gradient(225deg, rgba(0, 23, 45, 0.8),
-      rgba(0, 38, 77, 0.8));
+  background-image: url(../images/background.jpg),
+    linear-gradient(225deg, rgba(0, 23, 45, 0.8), rgba(0, 38, 77, 0.8));
   background-blend-mode: multiply;
   background-size: cover;
   background-position: center center;
@@ -115,7 +115,6 @@ header {
   bottom: 10px;
   padding-bottom: 50px;
 }
-
 
 .container-sm {
   display: grid;
