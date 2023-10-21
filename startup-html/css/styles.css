@@ -30,6 +30,7 @@ header {
 
 .align-end {
   align-self: end!important;
+  margin-bottom: 0!important;
 }
 
 .box {
