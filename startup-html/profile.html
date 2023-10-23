@@ -8,6 +8,7 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
   <link href="./css/styles.css" rel="stylesheet" />
   <link rel="icon" href="images/logo.png" />
+  <script src="js/profile.js"></script>
 </head>
 
 <body class="bg-dark" data-bs-theme="dark">
@@ -41,25 +42,25 @@
     <div class="container">
       <div class="container-fluid">
         <div class="box box-v-center">
-          <h2>Welcome %username%</h2>
+          <h2>Welcome <span id="username"></span></h2>
           <button id="logout-button" type="button" class="btn btn-primary hover">Logout</button>
         </div>
         <div class="container-sm box box-v-center box-no-margin">
           <div class="box hover bg-dark">
             <h3>Top Send</h3>
-            <h4>%top-send%</h4>
+            <h4><span id="topSend"></span></h4>
           </div>
           <div class="box hover bg-dark">
             <h3>Top Flash</h3>
-            <h4>%top-flash%</h4>
+            <h4><span id="topFlash"></span></h4>
           </div>
           <div class="box hover bg-dark">
             <h3>Top Onsight</h3>
-            <h4>%top-onsight%</h4>
+            <h4><span id="topOnsight"></span></h4>
           </div>
           <div class="box hover bg-dark">
             <h3>Total Ascents</h3>
-            <h4>%total-ascents%</h4>
+            <h4><span id="totalAscents"></span></h4>
           </div>
         </div>
 

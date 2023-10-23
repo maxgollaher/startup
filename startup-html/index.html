@@ -5,6 +5,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Climber's Crag</title>
+
+  <script type="module" src="js/login.js"></script>
+  <script type="module" src="js/register.js"></script>
+
+  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
   <link href="./css/styles.css" rel="stylesheet" />
@@ -41,43 +46,47 @@
   <main class="container-fluid bg-image">
     <div class="box flex-box">
       <div class="form">
-        <form class="login-form">
+        <form class="login-form" id="login-form">
           <h2 class="title">Login</h2>
           <div class="mb-3">
-            <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp"
-              placeholder="email / username" />
+            <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" autocomplete="email"
+              placeholder="email" />
           </div>
           <div class="mb-3">
-            <input type="password" class="form-control" id="inputPassword" placeholder="password" />
+            <input type="password" class="form-control" id="inputPassword" placeholder="password"
+              autocomplete="current-password" />
           </div>
-          <button type="submit" class="btn btn-primary hover">Login</button>
+          <button type="submit" class="btn btn-primary hover" id="login-form-submit">Login</button>
           <p class="message">
             Not Registered? <a href="#">Create an Account</a>
           </p>
         </form>
 
-        <form class="register-form">
+        <form class="register-form" id="register-form">
           <h2 class="title">Register</h2>
           <div class="mb-3">
-            <input type="username" class="form-control" id="inputUsername" aria-describedby="usernameHelp"
+            <input type="username" class="form-control" id="registerUsername" aria-describedby="usernameHelp"
               placeholder="username" />
           </div>
           <div class="mb-3">
             <input type="email" class="form-control" id="registerEmail" aria-describedby="emailHelp"
-              placeholder="email" />
+              autocomplete="email" placeholder="email" />
           </div>
           <div class="mb-3">
-            <input type="password" class="form-control" id="registerPassword" placeholder="password" />
+            <input type="password" class="form-control" id="registerPassword" placeholder="password"
+              autocomplete="new-password" />
           </div>
           <div class="mb-3">
-            <input type="password" class="form-control" id="confirmPassword" placeholder="confirm password" />
+            <input type="password" class="form-control" id="registerPasswordConfirm" placeholder="confirm password"
+              autocomplete="new-password" />
           </div>
-          <button type="submit" class="btn btn-primary hover">Create</button>
+          <button type="submit" class="btn btn-primary hover" id="register-form-submit">Create</button>
           <p class="message">Already registered? <a href="#">Sign In</a></p>
         </form>
       </div>
     </div>
   </main>
+
 
   <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-muted-top">
     <div class="col-md-4 d-flex align-items-center" style="padding-left: 1em">
