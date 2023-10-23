@@ -9,41 +9,18 @@
   <link href="./css/styles.css" rel="stylesheet" />
   <link rel="icon" href="images/logo.png" />
   <script src="js/profile.js"></script>
+  <script src="js/loadAssets.js"></script>
 </head>
 
 <body class="bg-dark" data-bs-theme="dark">
-  <header class="sticky-top">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="index.html">
-          <h1>Climber's Crag</h1>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Profile</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="leaderboards.html">Leaderboards</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
+  <header></header>
 
   <main class="bg-image d-grid">
     <div class="container">
       <div class="container-fluid">
         <div class="box box-v-center">
           <h2>Welcome <span id="username"></span></h2>
-          <button id="logout-button" type="button" class="btn btn-primary hover">Logout</button>
+          <button id="logoutButton" type="button" class="btn btn-primary hover">Logout</button>
         </div>
         <div class="container-sm box box-v-center box-no-margin">
           <div class="box hover bg-dark">
@@ -107,12 +84,7 @@
 
     </div>
 
-    <footer class=" align-end">
-        <div class="box bg-dark mb-0">
-          <p class="text-muted">&copy 2023 Climber's Crag, Inc. All rights reserved.</p>
-        </div>
-        </footer>
-
+    <footer></footer>
   </main>
 
 

@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // before SQL database is implemented, just create a user object instead of finding and verifying the User object in the database
+        // before MongoDB is implemented, just create a user object instead of finding and verifying the User object in the database
         const user = new User(email, "username", password);
 
         localStorage.setItem("user", JSON.stringify(user));

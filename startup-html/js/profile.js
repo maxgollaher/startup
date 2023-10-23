@@ -1,12 +1,12 @@
-
 // load the dom before running the script
 document.addEventListener("DOMContentLoaded", () => {
     const username = document.getElementById("username");
-    const logoutButton = document.getElementById("logout-button");
+    const logoutButton = document.getElementById("logoutButton");
 
+    // redirect to login page if not logged in
     const user = localStorage.getItem("user");
     if (!user) {
-        window.location.href = "index.html"; // prevent access to profile page if not logged in
+        window.location.href = "index.html";
     }
     username.innerText = JSON.parse(user).email; // currently displays email, but will be changed to username after the database is implemented
 

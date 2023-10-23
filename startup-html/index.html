@@ -5,11 +5,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Climber's Crag</title>
-
   <script type="module" src="js/login.js"></script>
   <script type="module" src="js/register.js"></script>
-
-  
+  <script src="js/loadAssets.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
   <link href="./css/styles.css" rel="stylesheet" />
@@ -17,31 +15,7 @@
 </head>
 
 <body class="bg-dark" data-bs-theme="dark">
-  <header class="sticky-top">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <h1>Climber's Crag</h1>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="profile.html">Profile</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="leaderboards.html">Leaderboards</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
+  <header></header>
 
   <main class="container-fluid bg-image">
     <div class="box flex-box">
@@ -88,14 +62,14 @@
   </main>
 
 
-  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-muted-top">
+  <div class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-muted-top">
     <div class="col-md-4 d-flex align-items-center" style="padding-left: 1em">
       <a href="https://github.com/maxgollaher/startup"
         class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
         <span class="mb-3 mb-md-0 text-light">Github Repo</span>
       </a>
     </div>
-  </footer>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
