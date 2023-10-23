@@ -2,8 +2,8 @@ import { User } from "./User.js";
 
 // load the dom before running the script
 document.addEventListener("DOMContentLoaded", () => {
-    const registerForm = document.querySelector("#register-form");
-    const registerButton = document.querySelector("#register-form-submit");
+    const registerForm = document.querySelector("#registerForm");
+    const registerButton = document.querySelector("#registerFormSubmit");
 
     registerButton.addEventListener("click", (e) => {
         e.preventDefault();
@@ -28,9 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const user = new User(email, username, password);
 
         // eventually add the user to the database here
-
         localStorage.setItem("user", JSON.stringify(user));
         window.location.href = "profile.html";
-
     });
 });

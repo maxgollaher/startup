@@ -2,8 +2,8 @@ import { User } from "./User.js";
 
 // load the dom before running the script
 document.addEventListener("DOMContentLoaded", () => {
-    const loginForm = document.querySelector("#login-form");
-    const loginButton = document.querySelector("#login-form-submit");
+    const loginForm = document.querySelector("#loginForm");
+    const loginButton = document.querySelector("#loginFormSubmit");
 
     loginButton.addEventListener("click", (e) => {
         e.preventDefault();

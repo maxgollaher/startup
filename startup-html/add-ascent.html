@@ -8,6 +8,7 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
   <link href="./css/styles.css" rel="stylesheet" />
   <link rel="icon" href="images/logo.png" />
+  <script type="module" src="js/addAscent.js"></script>
   <script src="js/loadAssets.js"></script>
 </head>
 
@@ -20,7 +21,7 @@
         <div class="box box-v-center">
           <h2>Add an Ascent</h2>
         </div>
-        <form class="box">
+        <form class="box" id="ascentForm">
           <div class="mb-3">
             <label for="inputName" class="form-label">Name</label>
             <input type="name" class="form-control" id="inputName" />
@@ -67,7 +68,7 @@
             <label for="inputDate" class="form-label">Date</label>
             <input type="date" class="form-control" id="inputDate" />
           </div>
-          <button type="submit" class="btn btn-primary hover">Submit</button>
+          <button type="submit" id="ascentSubmit" class="btn btn-primary hover">Submit</button>
         </form>
       </div>
 
