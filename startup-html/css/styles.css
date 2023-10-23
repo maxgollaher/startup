@@ -158,3 +158,9 @@ header {
 .form button {
   text-transform: uppercase;
 }
+
+#map {
+  height: 100%;
+}
+
+

@@ -8,8 +8,13 @@ function loadHeader() {
             return response.text()
         })
         .then(data => {
-            document.querySelector("header").innerHTML = data;
+            const header = document.querySelector("header");
+            if (header) {
+                header.innerHTML = data;
+            }
         });
+    const event = new Event("headerLoaded");
+    document.dispatchEvent;
 }
 
 function loadFooter() {
@@ -18,9 +23,12 @@ function loadFooter() {
             return response.text()
         })
         .then(data => {
-            const footer = document.querySelector("footer")
-            footer.innerHTML = data;
-            footer.classList.add("align-end");
+            const footer = document.querySelector("footer");
+            if (footer) {
+                footer.innerHTML = data;
+                footer.classList.add("align-end");
+            }
+
         });
 }
 
