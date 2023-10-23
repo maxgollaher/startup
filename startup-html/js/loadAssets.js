@@ -13,8 +13,6 @@ function loadHeader() {
                 header.innerHTML = data;
             }
         });
-    const event = new Event("headerLoaded");
-    document.dispatchEvent;
 }
 
 function loadFooter() {
