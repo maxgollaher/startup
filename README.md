@@ -53,3 +53,13 @@ This update added CSS and Bootstrap styles to the website.
 - [x] **Application elements** - Whitespace is utilized to prevent the page from feeling crowded.
 - [x] **Application text content** - Fonts are consistent throughtout the site.
 - [x] **Application images** - Included a favicon for the icon in each page title. Each page also has a background image that responds to the size of the website.
+
+
+## JS deliverable
+
+This update added some basic JS and functionality to the website.
+
+- [x] **Login** - Added support for both login and register. When you provide information and submit, as User is created and stored in local memory. You are unable to go to `profile.html` without a User stored. After logging in, the user is redirected to the `profile.html` page.
+- [x] **Database** - When the user logs in or registers, their email is displayed on their profile. This will be replaced with their username once an actual database can be created. The profile page has some placeholder information for stats about the user. It also displays a climbing log, which reads data from a JSON file and sorts according to the Yosemite Decimal System. The `leaderboard.html` table is similar to the climbing log.
+- [x] **WebSocket** - Currently, the plan is to get location data from the `Add an Ascent` form and display it on the user's profile. Without access to the Google Maps API, I am unable to do this currently, but a Google Map iframe was inserted as a placeholder.
+- [x] **Application Logic** - In addition to above, in order to populate the climbing log and leaderboard with data, the user can input data in hte `Add an Ascent` form, which creates an `Ascent` object and stores it in local memory. The plan is to eventually use these objects to populate the database.
