@@ -163,4 +163,35 @@ header {
   height: 100%;
 }
 
+.table-dark {
+  margin-top: 1rem;
+  background-color: #343a40;
+  color: #fff;
+  text-transform: capitalize;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+}
 
+.table-dark td {
+  padding: 0.5em;
+  border-top: 1px solid #666666;
+  border-bottom: 1px solid #666666;
+}
+
+.table-dark tr:nth-child(even) {
+  background-color: #31363b;
+}
+
+.table-dark tr:nth-child(odd) {
+  background-color: #25292c;
+}
+
+.table-dark th {
+  background-color: #202327;
+  color: #fff;
+  user-select: none;
+  padding: 0.5em;
+}
+
+.table-dark tr:hover {
+  background-color: #666;
+}
