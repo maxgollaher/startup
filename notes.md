@@ -61,7 +61,12 @@ Which of the following console command creates a remote shell session?
 Which of the following is true when the -la parameter is specified for the ls console command?
 
 Which of the following is true for the domain name banana.fruit.bozo.click, which is the top level domain, which is a subdomain, which is a root domain?
+
 Is a web certificate is necessary to use HTTPS.
+
 Can a DNS A record can point to an IP address or another A record.
+
 Port 443, 80, 22 is reserved for which protocol?
+
 What will the following code using Promises output when executed?
+
