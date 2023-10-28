@@ -77,12 +77,43 @@ function outputData(title, data) {
 }
 
 function sortTable(column) {
-    var attr = column.innerText.toLowerCase();
+    const attr = column.innerText.toLowerCase();
     sortDirection *= -1;
-    let changedData = currentData.sort(function (a, b) {
-        return a[attr] > b[attr] ? sortDirection : b[attr] > a[attr] ? -sortDirection : 0;
-    });
+
+    let changedData;
+    if (attr === "grade" || attr === "top send" || attr === "top flash" || attr === "top onsight") {
+        console.log("yosemite sort")
+        changedData = currentData.sort(function (a, b) {
+            return yosemiteSort(a[attr], b[attr]) * sortDirection;
+        });
+    } else {
+        changedData = currentData.sort(function (a, b) {
+            return a[attr] > b[attr] ? sortDirection : b[attr] > a[attr] ? -sortDirection : 0;
+        });
+    }
+
     table(changedData);
+}
+
+function yosemiteSort(a, b) {
+    const regex = /^(\d+\.)(\d+)([a-z]*)?$/; // ["5.10a","5.","10","a"?]
+    const matchA = a.match(regex);
+    const matchB = b.match(regex);
+
+    if (matchA && matchB) {
+        const numA = parseFloat(matchA[2]);
+        const numB = parseFloat(matchB[2]);
+        if (numA > numB) {
+            return 1;
+        } else if (numB > numA) {
+            return -1;
+        } else {
+            const letterA = matchA[3];
+            const letterB = matchB[3];
+            return letterA > letterB ? 1 : letterB > letterA ? -1 : 0;
+        }
+    }
+    return 0;
 }
 
 function loadJSON(file) {
