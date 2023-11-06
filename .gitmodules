@@ -7,3 +7,6 @@
 [submodule "simon-javascript"]
 	path = simon-javascript
 	url = https://github.com/webprogramming260/simon-javascript.git
+[submodule "simon-service"]
+	path = simon-service
+	url = https://github.com/webprogramming260/simon-service.git
