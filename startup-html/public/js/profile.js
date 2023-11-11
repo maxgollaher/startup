@@ -4,32 +4,32 @@ document.addEventListener("DOMContentLoaded", () => {
     const logoutButton = document.getElementById("logoutButton");
 
     // redirect to login page if not logged in
-    const user = localStorage.getItem("user");
+    var user = localStorage.getItem("user");
     if (!user) {
         window.location.href = "index.html";
     }
-    username.innerText = JSON.parse(user).email; // currently displays email, but will be changed to username after the database is implemented
+    user = JSON.parse(user);
+    username.innerText = user.username; // display the username
 
     logoutButton.addEventListener("click", () => {
         localStorage.removeItem("user");
         window.location.href = "index.html";
     });
 
+    // pull the stats from the api
+    fetch(`/api/userData/${user.username}`)
+        .then(response => {
+            return response.json()
+        })
+        .then(data => {
+            const topSendElement = document.getElementById("topSend");
+            const topFlashElement = document.getElementById("topFlash");
+            const topOnsightElement = document.getElementById("topOnsight");
+            const totalAscentsElement = document.getElementById("totalAscents");
 
-    // temporary code to display the user's stats, will be replaced with code that pulls from the database
-    const topSend = "5.12c";
-    const topFlash = "5.11c";
-    const topOnsight = "5.12a";
-    const totalAscents = 235;
-
-    const topSendElement = document.getElementById("topSend");
-    const topFlashElement = document.getElementById("topFlash");
-    const topOnsightElement = document.getElementById("topOnsight");
-    const totalAscentsElement = document.getElementById("totalAscents");
-
-    topSendElement.innerText = topSend;
-    topFlashElement.innerText = topFlash;
-    topOnsightElement.innerText = topOnsight;
-    totalAscentsElement.innerText = totalAscents;
-
+            topSendElement.innerText = data["top send"];
+            topFlashElement.innerText = data["top flash"];
+            topOnsightElement.innerText = data["top onsight"];
+            totalAscentsElement.innerText = data["total ascents"]
+        });
 });

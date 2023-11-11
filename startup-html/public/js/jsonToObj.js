@@ -3,7 +3,7 @@
 let sortDirection = 1;
 
 function table(data) {
-    if (!!data && data.length > 1) {
+    if (!!data && data.length >= 1) {
         currentData = data;
         const headers = parseHeader(data);
         const tableElement = generateTable(headers, data);
@@ -82,7 +82,6 @@ function sortTable(column) {
 
     let changedData;
     if (attr === "grade" || attr === "top send" || attr === "top flash" || attr === "top onsight") {
-        console.log("yosemite sort")
         changedData = currentData.sort(function (a, b) {
             return yosemiteSort(a[attr], b[attr]) * sortDirection;
         });
@@ -116,14 +115,34 @@ function yosemiteSort(a, b) {
     return 0;
 }
 
-function loadJSON(file) {
-
-    fetch(file)
-        .then(response => {
-            return response.json()
-        })
-        .then(data => {
-            table(data);
-        });
-
+function loadLeaderboard() {
+    try {
+        fetch('/api/userData')
+            .then(response => {
+                return response.json()
+            })
+            .then(data => {
+                table(Object.values(data));
+            });
+    } catch (error) {
+        console.log(error);
+    }
 }
+
+function loadClimbLog() {
+    const user = localStorage.getItem("user");
+    const username = JSON.parse(user).username;
+    try {
+        fetch('/api/userLog/' + username)
+            .then(response => {
+                return response.json()
+            })
+            .then(data => {
+                table(data.climbs);
+            });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+module.exports = yosemiteSort;

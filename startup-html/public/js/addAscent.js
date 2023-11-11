@@ -26,10 +26,27 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // before MongoDB is implemented, just create an ascentObj and put it in local storage
         const ascentObj = new Ascent(name, grade, send, date);
-        localStorage.setItem("ascent", JSON.stringify(ascentObj));
-        window.location.href = "profile.html";
+        const username = JSON.parse(localStorage.getItem("user")).username;
+
+        // add to the userLog/userData array
+        try {
+            fetch(`/api/userLog/${username}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    climb: ascentObj
+                })
+            });
+            window.location.href = "profile.html";
+
+        } catch (err) {
+            console.log(err);
+        }
+
+
 
     });
 
