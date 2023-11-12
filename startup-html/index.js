@@ -42,8 +42,9 @@ apiRouter.post('/userData', (req, res) => {
         "total ascents": 0
     };
     userVerify[username] = {
-        "email": req.body.user.email,
-        "password": req.body.user.password
+        email: req.body.user.email,
+        password: req.body.user.password,
+        username: username
     };
     res.send(userData);
 });
