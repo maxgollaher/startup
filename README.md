@@ -63,3 +63,13 @@ This update added some basic JS and functionality to the website.
 - [x] **Database** - When the user logs in or registers, their email is displayed on their profile. This will be replaced with their username once an actual database can be created. The profile page has some placeholder information for stats about the user. It also displays a climbing log, which reads data from a JSON file and sorts according to the Yosemite Decimal System. The `leaderboard.html` table is similar to the climbing log.
 - [x] **WebSocket** - Currently, the plan is to get location data from the `Add an Ascent` form and display it on the user's profile. Without access to the Google Maps API, I am unable to do this currently, but a Google Map iframe was inserted as a placeholder.
 - [x] **Application Logic** - In addition to the above, to populate the climbing log and leaderboard with data, the user can input data in the `Add an Ascent` form, which creates an `Ascent` object and stores it in local memory. The plan is to eventually use these objects to populate the database.
+
+## Service deliverable
+
+This deliverable sets up an api and uses the api to transfer data between different locations on the website, such as adding climb data, location data using GoogleMaps API, and login data
+
+- [x] **Node.js/Express HTTP service** - done!
+- [x] **Static middleware for frontend** - done!
+- [x] **Calls to third party endpoints** - uses GoogleMaps api to render a map, get location data, and communicated with the backend to save climb location data specific to the user. To see some example data, use the username: John Smith, and password: password.
+- [x] **Backend service endpoints** - Login is pretty much implemented, new users can be created and verified. Existing users' data is stored. All data is stored and fetched from the api endpoints. Tables are generated using the api.
+- [x] **Frontend calls service endpoints** - I used fetch to render the tables, and used POST / GET requests to add and modify objects in the backend.
