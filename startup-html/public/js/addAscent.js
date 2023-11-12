@@ -51,3 +51,57 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
+let map;
+
+async function initMap() {
+    // Replace the center with the coordinates of BYU
+    const center = { lat: 40.25191879272461, lng: -111.64933776855469 };
+
+    // Import the necessary libraries
+    const { Map } = await google.maps.importLibrary("maps");
+    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+
+    // Create the map
+    map = new Map(document.getElementById("map"), {
+        zoom: 14,
+        center: center,
+        mapId: "DEMO_MAP_ID",
+    });
+
+    map.addListener('click', function (event) {
+        addMarker(event.latLng);
+    });
+}
+
+// Call the initMap function
+initMap();
+
+function addMarker(location) {
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map
+    });
+
+    // extract marker data
+    const markerData = {
+        position: marker.getPosition().toJSON()
+    };
+
+    const username = JSON.parse(localStorage.getItem("user")).username;
+
+    try {
+        fetch(`/api/markers`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username: username,
+                marker: markerData
+            })
+        });
+    } catch (err) {
+        console.error(err);
+    }
+}

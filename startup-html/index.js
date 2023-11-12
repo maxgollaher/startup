@@ -117,6 +117,22 @@ apiRouter.post('/verify', (req, res) => {
 });
 
 
+apiRouter.get('/markers/:username', (req, res) => {
+    const username = req.params.username;
+    res.json(markers[username]);
+});
+
+apiRouter.post('/markers', (req, res) => {
+    const userMarkers = markers[req.body.username];
+
+    // create the user's marker array if it doesn't exist
+    if (userMarkers === undefined) {
+        markers[req.body.username] = [];
+    }
+    userMarkers.push(req.body.marker);
+});
+
+
 let userData = {
     "John Smith": {
         "name": "John Smith",
@@ -201,4 +217,11 @@ let userVerify = {
         password: "password",
         username: "John Smith"
     }
+}
+
+let markers = {
+    "John Smith": [
+        { position: { lat: 40.25191879272461, lng: -111.64933776855469 } },
+        { position: { lat: 40.26716232299805, lng: -111.63573455810547 } }
+    ]  
 }
