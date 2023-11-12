@@ -27,10 +27,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const topOnsightElement = document.getElementById("topOnsight");
             const totalAscentsElement = document.getElementById("totalAscents");
 
-            topSendElement.innerText = data["top send"];
-            topFlashElement.innerText = data["top flash"];
-            topOnsightElement.innerText = data["top onsight"];
-            totalAscentsElement.innerText = data["total ascents"]
+            data["top send"] ? topSendElement.innerText = data["top send"] : topSendElement.innerText = "N/A";
+            data["top flash"] ? topFlashElement.innerText = data["top flash"] : topFlashElement.innerText = "N/A";
+            data["top onsight"] ? topOnsightElement.innerText = data["top onsight"] : topOnsightElement.innerText = "N/A";
+            data["total ascents"] ? totalAscentsElement.innerText = data["total ascents"] : totalAscentsElement.innerText = "N/A";
         });
 });
 

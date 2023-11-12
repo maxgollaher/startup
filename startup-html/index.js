@@ -46,6 +46,11 @@ apiRouter.post('/userData', (req, res) => {
         password: req.body.user.password,
         username: username
     };
+    markers[username] = [];
+    userLogs[username] = {
+        "climbs": [
+        ]
+    }
     res.send(userData);
 });
 
@@ -63,22 +68,8 @@ apiRouter.get('/userData/:username', (req, res) => {
 // get the user's log
 apiRouter.get('/userLog/:username', (req, res) => {
     const user = req.params.username;
-    if (userLogs[user]) {
-        res.send(userLogs[user]);
-    } else {
-        res.send(
-            {
-                "climbs": [
-                    {
-                        "name": "",
-                        "grade": "",
-                        "send": "",
-                        "date": ""
-                    }
-                ]
-            }
-        );
-    }
+    res.send(userLogs[user]);
+
 });
 
 // add a user to the database
@@ -92,6 +83,25 @@ apiRouter.post('/userLog', (req, res) => {
 apiRouter.post('/userLog/:username', (req, res) => {
     const user = req.params.username;
     const newClimb = req.body.climb;
+
+    // add the field to the user's log if necessary
+    switch (newClimb.type) {
+        case "Fell/Rested":
+            if (userLogs[user]["top send"] === undefined) {
+                userLogs[user]["top send"] = "";
+            }
+            break;
+        case "Flash":
+            if (userLogs[user]["top flash"] === undefined) {
+                userLogs[user]["top flash"] = "";
+            }
+            break;
+        case "Onsight":
+            if (userLogs[user]["top onsight"] === undefined) {
+                userLogs[user]["top onsight"] = "";
+            }
+            break;
+    }
 
     // update the user's stats
     if (newClimb.type === "Fell/Rested" && (userData[user]["top send"] === "" || yosemiteSort(newClimb.grade, userData[user]["top send"]) === 1)) {
@@ -123,11 +133,12 @@ apiRouter.get('/markers/:username', (req, res) => {
 });
 
 apiRouter.post('/markers', (req, res) => {
-    const userMarkers = markers[req.body.username];
+    const username = req.body.username;
+    const userMarkers = markers[username];
 
-    // create the user's marker array if it doesn't exist
+    // Create the user's marker array if it doesn't exist
     if (userMarkers === undefined) {
-        markers[req.body.username] = [];
+        markers[username] = [];
     }
     userMarkers.push(req.body.marker);
 });
