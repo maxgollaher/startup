@@ -1,6 +1,3 @@
-import { User } from "./User.js";
-
-// load the dom before running the script
 document.addEventListener("DOMContentLoaded", () => {
     const registerForm = document.querySelector("#registerForm");
     const registerButton = document.querySelector("#registerFormSubmit");
@@ -25,11 +22,15 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const user = new User(email, username, password);
+        const user = {
+            username: username,
+            email: email,
+            password: password
+        };
 
-        // add the user to the temporary database
+        // add the user to the database
         try {
-            const res = await fetch(`/api/userData`, {
+            const res = await fetch(`/api/auth/create`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -44,13 +45,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert(data.msg);
                 return;
             }
+
+            localStorage.setItem("user", username);
+            window.location.href = "profile.html";
         } catch (err) {
             console.log(err);
         }
-
-
-        // eventually add the user to the database here
-        localStorage.setItem("user", JSON.stringify(user));
-        window.location.href = "profile.html";
     });
 });

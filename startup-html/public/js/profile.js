@@ -1,24 +1,23 @@
-// load the dom before running the script
 document.addEventListener("DOMContentLoaded", async () => {
-    const username = document.getElementById("username");
-    const logoutButton = document.getElementById("logoutButton");
-
-    // redirect to login page if not logged in
-    var user = localStorage.getItem("user");
+        // redirect to login page if not logged in
+    const user = localStorage.getItem("user");
     if (!user) {
         window.location.href = "index.html";
     }
-    user = JSON.parse(user);
-    username.innerText = user.username; // display the username
+    username.innerText = user; // display the username
 
-    logoutButton.addEventListener("click", () => {
-        localStorage.removeItem("user");
-        window.location.href = "index.html";
-    });
+    await loadStats();
+    await initMap();
 
+    const logoutButton = document.getElementById("logoutButton");
+    logoutButton.addEventListener("click", logout);
+});
+
+async function loadStats() {
+    const user = localStorage.getItem("user");
     // pull the stats from the api
     try {
-        const response = await fetch(`/api/userData/${user.username}`);
+        const response = await fetch(`/api/userData/${user}`);
         const data = await response.json();
 
         const topSendElement = document.getElementById("topSend");
@@ -33,9 +32,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     } catch (error) {
         console.error("Error fetching user data:", error);
     }
-    // Call the initMap function
-    initMap();
-});
+}
+
+async function logout() {
+    try {
+        const response = await fetch(`/api/auth/logout`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        if (!response.ok) {
+            const data = await response.json();
+            alert(data.msg);
+            return
+        }
+        localStorage.removeItem("user");
+        window.location.href = "index.html";
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 let map;
 
@@ -54,7 +71,7 @@ async function initMap() {
     });
 
     // get the list of markers from the api
-    const username = JSON.parse(localStorage.getItem("user")).username;
+    const username = localStorage.getItem("user");
     fetch(`/api/markers/${username}`)
         .then(response => {
             return response.json();

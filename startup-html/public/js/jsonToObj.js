@@ -126,8 +126,7 @@ async function loadLeaderboard() {
 }
 
 async function loadClimbLog() {
-    const user = localStorage.getItem("user");
-    const username = JSON.parse(user).username;
+    const username = localStorage.getItem("user");
     try {
         const response = await fetch('/api/userLog/' + username);
         const data = await response.json();

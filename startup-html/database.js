@@ -1,5 +1,7 @@
 const { MongoClient } = require('mongodb');
 const config = require('./dbConfig.json');
+const bcrypt = require('bcrypt');
+const uuid = require('uuid');
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}/`;
 const client = new MongoClient(url);
@@ -18,6 +20,53 @@ const markers = db.collection('markers');
   process.exit(1);
 });
 
+async function createUser(username, email, password) {
+  // hash the password before inserting it into the database
+  const passwordHash = await bcrypt.hash(password, 10);
+
+  const user = {
+    username: username,
+    email: email,
+    password: passwordHash,
+    token: uuid.v4(),
+  }
+
+  // create the user in the database
+  await addData({
+    "name": username,
+    "top send": "",
+    "top flash": "",
+    "top onsight": "",
+    "total ascents": 0
+  });
+  await addVerify(user);
+  await addMarkers({
+    username: username,
+    markers: []
+  });
+  await addLog({
+    username: username,
+    climbs: []
+  })
+  return user;
+}
+
+async function addData(score) {
+  return await userData.insertOne(score);
+}
+
+async function addVerify(score) {
+  return await userVerify.insertOne(score);
+}
+
+async function addMarkers(score) {
+  return await markers.insertOne(score);
+}
+
+async function addLog(score) {
+  return await userLogs.insertOne(score);
+}
+
 // findAll for userData
 async function findAllUserData() {
   const projection = { _id: 0 };
@@ -25,44 +74,23 @@ async function findAllUserData() {
   return cursor.toArray();
 }
 
-async function addData(score) {
-  const result = await userData.insertOne(score);
-  return result;
-}
-
-async function addVerify(score) {
-  const result = await userVerify.insertOne(score);
-  return result;
-}
-
-async function addMarkers(score) {
-  const result = await markers.insertOne(score);
-  return result;
-}
-
-async function addLog(score) {
-  const result = await userLogs.insertOne(score);
-  return result;
-}
-
 async function getUserData(username) {
-  const query = { name: username };
-  const cursor = userData.findOne(query);
-  return cursor;
+  return userData.findOne({ name: username });
 }
 
 async function getUserLog(username) {
-  const query = { username: username };
-  const userLog = userLogs.findOne(query);
-  return userLog;
+  return userLogs.findOne({ username: username });
+}
+
+async function getUserByToken(token) {
+  return userVerify.findOne({ token: token });
 }
 
 // adds a climb to the user's log
 async function updateUserLog(username, climb) {
   const query = { username: username };
   const update = { $push: { climbs: climb } };
-  const result = await userLogs.updateOne(query, update);
-  return result;
+  return await userLogs.updateOne(query, update);
 }
 
 // update the user's stats
@@ -70,36 +98,25 @@ async function updateUserData(username, newData) {
   const query = { name: username };
   const { name, ...updatedData } = newData;
   const update = { $set: updatedData };
-  const result = await userData.updateOne(query, update);
-  return result;
+  return await userData.updateOne(query, update);
 }
 
-// verifies a user
-async function verifyUser(username, password) {
-  const query = { username: username, password: password };
-  const cursor = userVerify.findOne(query);
-  return cursor;
-}
-
-async function userExists(username) {
-  const query = { username: username };
-  const cursor = userVerify.findOne(query);
-  return cursor;
+// finds a user by username in the userVerify collection
+async function getUser(username) {
+  const foundUser = userVerify.findOne({ username: username });
+  return foundUser;
 }
 
 // gets a user's markers
 async function getMarkers(username) {
-  const query = { username: username };
-  const cursor = markers.findOne(query);
-  return cursor;
+  return markers.findOne({ username: username });
 }
 
 // adds a marker to a user's markers
 async function addMarker(username, marker) {
   const query = { username: username };
   const update = { $push: { markers: marker } };
-  const result = await markers.updateOne(query, update);
-  return result;
+  return await markers.updateOne(query, update);
 }
 
 
@@ -113,8 +130,9 @@ module.exports = {
   getUserLog,
   updateUserLog,
   updateUserData,
-  verifyUser,
   getMarkers,
   addMarker,
-  userExists
+  getUser,
+  createUser,
+  getUserByToken
 };

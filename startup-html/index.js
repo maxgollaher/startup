@@ -1,92 +1,106 @@
-const express = require("express");
-const jsonFuncs = require("./public/js/jsonToObj.js");
-const yosemiteSort = jsonFuncs.yosemiteSort;
+const cookieParser = require('cookie-parser');
+const bcrypt = require('bcrypt');
+const express = require('express');
 const app = express();
 const DB = require('./database.js');
 
-const port = process.argv.length > 2 ? process.argv[2] : 3000;
+const authCookieName = 'token';
 
-app.listen(port, () => {
-    console.log(`Listening on port ${port}!`);
-});
+const port = 4000;
+
+const jsonFuncs = require("./public/js/jsonToObj.js");
+const yosemiteSort = jsonFuncs.yosemiteSort;
 
 // JSON body parsing using built-in middleware
 app.use(express.json());
 
+// Use the cookie parser middleware for tracking authentication tokens
+app.use(cookieParser());
+
 // Serve up the front-end static content hosting
 app.use(express.static('public'));
+
+// Trust headers that are forwarded from the proxy so we can determine IP addresses
+app.set('trust proxy', true);
 
 // Router for service endpoints
 var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
-// Return the application's default page if the path is unknown
-app.use((_req, res) => {
-    res.sendFile('index.html', { root: 'public' });
+// create a new user
+apiRouter.post('/auth/create', async (req, res) => {
+    const username = req.body.user.username;
+    if (await DB.getUser(username)) {
+        res.status(400).json({ "msg": "User already exists!" });
+        return;
+    }
+    const user = await DB.createUser(username, req.body.user.email, req.body.user.password);
+
+    // Set the cookie
+    setAuthCookie(res, user.token);
+    res.send({ id: user._id, });
+    return;
 });
 
-// get leaderboard
-apiRouter.get('/userData', async (_req, res) => {
+// verify a user
+apiRouter.post('/auth/login', async (req, res) => {
+    foundUser = await DB.getUser(req.body.username);
+    if (foundUser) {
+        if (await bcrypt.compare(req.body.password, foundUser.password)) {
+            setAuthCookie(res, foundUser.token);
+            res.send({ id: foundUser._id });
+            return;
+        }
+    }
+    res.status(404).send({ "msg": "User not found!" });
+});
+
+// DeleteAuth token if stored in cookie
+apiRouter.delete('/auth/logout', (_req, res) => {
+    res.clearCookie(authCookieName);
+    res.status(204).end();
+});
+
+// secureApiRouter verifies credentials for endpoints
+var secureApiRouter = express.Router();
+apiRouter.use(secureApiRouter);
+
+secureApiRouter.use(async (req, res, next) => {
+    authToken = req.cookies[authCookieName];
+    console.log(authToken);
+    const user = await DB.getUserByToken(authToken);
+    if (user) {
+        next();
+    } else {
+        res.status(401).send({ msg: 'Unauthorized' });
+    }
+});
+
+// get a user's stats
+secureApiRouter.get('/userData/:username', async (req, res) => {
+    const foundUser = await DB.getUserData(req.params.username);
+    if (!foundUser) {
+        res.status(404).send({ msg: "User not found!" });
+        return;
+    }
+    res.send(foundUser);
+});
+
+// get the entire leaderboard
+secureApiRouter.get('/userData', async (_req, res) => {
     const userData = await DB.findAllUserData();
     res.send(userData);
 });
 
-// add a user
-apiRouter.post('/userData', async (req, res) => {
-    const username = req.body.user.username;
-    const userFound = await DB.userExists(username);
-    if (userFound) {
-        res.status(400).json({ "msg": "User already exists!" });
-        return;
-    }
-    const userData = {
-        "name": username,
-        "top send": "",
-        "top flash": "",
-        "top onsight": "",
-        "total ascents": 0
-    };
-
-    // create the user in the database
-    await DB.addData(userData);
-    await DB.addVerify({
-        username: username,
-        email: req.body.user.email,
-        password: req.body.user.password
-    });
-    await DB.addMarkers({
-        username: username,
-        markers: []
-    });
-    await DB.addLog({
-        username: username,
-        climbs: [
-        ]
-    })
-    res.send(userData);
-});
-
-// get a user's stats
-apiRouter.get('/userData/:username', async (req, res) => {
-    const user = req.params.username;
-    const foundUser = await DB.getUserData(user);
-    if (foundUser) {
-        res.send(foundUser);
-    } else {
-        res.status(404).send({ msg: "User not found!" });
-    }
-});
-
-
 // get the user's log
-apiRouter.get('/userLog/:username', async (req, res) => {
+secureApiRouter.get('/userLog/:username', async (req, res) => {
     const user = req.params.username;
     const userLog = await DB.getUserLog(user);
     res.json(userLog);
 });
 
 // add a climb to the user's log
-apiRouter.post('/userLog/:username', async (req, res) => {
+secureApiRouter.post('/userLog/:username', async (req, res) => {
     const user = req.params.username;
     const newClimb = req.body.climb;
 
@@ -125,29 +139,40 @@ apiRouter.post('/userLog/:username', async (req, res) => {
     res.send(userData);
 });
 
-// verify a user
-apiRouter.post('/verify', async (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
-    foundUser = await DB.verifyUser(username, password);
-    if (foundUser) {
-        res.send(foundUser);
-    } else {
-        res.status(404).send({ "msg": "Username or Password incorrect!" });
-    }
-});
-
-
-apiRouter.get('/markers/:username', async (req, res) => {
+secureApiRouter.get('/markers/:username', async (req, res) => {
     const username = req.params.username;
     const markers = await DB.getMarkers(username);
     res.send(markers);
 });
 
-apiRouter.post('/markers', async (req, res) => {
+secureApiRouter.post('/markers', async (req, res) => {
     const username = req.body.username;
     const marker = req.body.marker;
     await DB.addMarker(username, marker);
 });
+
+// Default error handler
+app.use(function (err, req, res, next) {
+    res.status(500).send({ type: err.name, message: err.message });
+});
+
+// Return the application's default page if the path is unknown
+app.use((_req, res) => {
+    res.sendFile('index.html', { root: 'public' });
+});
+
+// setAuthCookie in the HTTP response
+function setAuthCookie(res, authToken) {
+    res.cookie(authCookieName, authToken, {
+        secure: true,
+        httpOnly: true,
+        sameSite: 'strict',
+    });
+}
+
+app.listen(port, () => {
+    console.log(`Listening on port ${port}!`);
+});
+
 
 

@@ -1,5 +1,3 @@
-import { Ascent } from "./Ascent.js";
-
 document.addEventListener("DOMContentLoaded", () => {
 
     const user = localStorage.getItem("user");
@@ -26,8 +24,13 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const ascentObj = new Ascent(name, grade, send, date);
-        const username = JSON.parse(localStorage.getItem("user")).username;
+        const ascentObj = {
+            name: name,
+            grade: grade,
+            type: send,
+            date: date
+        };
+        const username = localStorage.getItem("user");
 
         // add to the userLog/userData array
         try {
@@ -51,11 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error(err);
             // Handle errors such as network issues or exceptions
         }
-
-
-
     });
-
 });
 
 let map;
@@ -66,7 +65,6 @@ async function initMap() {
 
     // Import the necessary libraries
     const { Map } = await google.maps.importLibrary("maps");
-    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
     // Create the map
     map = new Map(document.getElementById("map"), {
@@ -94,7 +92,7 @@ function addMarker(location) {
         position: marker.getPosition().toJSON()
     };
 
-    const username = JSON.parse(localStorage.getItem("user")).username;
+    const username = localStorage.getItem("user");
 
     try {
         fetch(`/api/markers`, {
