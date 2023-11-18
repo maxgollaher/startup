@@ -73,3 +73,11 @@ This deliverable sets up an api and uses the api to transfer data between differ
 - [x] **Calls to third party endpoints** - uses GoogleMaps api to render a map, get location data, and communicated with the backend to save climb location data specific to the user. To see some example data, use the username: John Smith, and password: password.
 - [x] **Backend service endpoints** - Login is pretty much implemented, new users can be created and verified. Existing users' data is stored. All data is stored and fetched from the api endpoints. Tables are generated using the api.
 - [x] **Frontend calls service endpoints** - I used fetch to render the tables, and used POST / GET requests to add and modify objects in the backend.
+
+## Database deliverable
+
+For this deliverable, I created a MongoDB database to store data as opposed to static objects in the server.
+
+- [x] MongoDB Atlas database created - done!
+- [x] Endpoints for data - Every endpoint interacts the the DB and stores/updates the data in MongoDB.
+- [x] Stores data in MongoDB - done!
