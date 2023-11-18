@@ -81,3 +81,13 @@ For this deliverable, I created a MongoDB database to store data as opposed to s
 - [x] **MongoDB Atlas database created** - done!
 - [x] **Endpoints for data** - Every endpoint interacts with the DB and stores/updates the data in MongoDB.
 - [x] **Stores data in MongoDB** - done!
+
+## Login deliverable
+
+For this deliverable, I further implemented the login system to create and store an authToken cookie which prevents
+the user from making api calls until logged in.
+
+- [x] **User Registration** - Creates a new account in the database. All data is personal to the user.
+- [x] **Existing User** - Stores all data for the user in the database, retrieves it for each unique login.
+- [x] **Use MongoDB to store credentials** - Stores all data in MongoDB and uses a hash to encrypt sensitive data.
+- [x] **Restricts functionality** - You are unable to make API calls without an authToken as well as visit pages other than `index.html`.
