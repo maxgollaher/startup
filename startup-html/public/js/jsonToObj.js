@@ -115,34 +115,30 @@ function yosemiteSort(a, b) {
     return 0;
 }
 
-function loadLeaderboard() {
+async function loadLeaderboard() {
     try {
-        fetch('/api/userData')
-            .then(response => {
-                return response.json()
-            })
-            .then(data => {
-                table(Object.values(data));
-            });
+        const response = await fetch('/api/userData');
+        const data = await response.json();
+        table(Object.values(data));
     } catch (error) {
         console.log(error);
     }
 }
 
-function loadClimbLog() {
+async function loadClimbLog() {
     const user = localStorage.getItem("user");
     const username = JSON.parse(user).username;
     try {
-        fetch('/api/userLog/' + username)
-            .then(response => {
-                return response.json()
-            })
-            .then(data => {
-                table(data.climbs);
-            });
+        const response = await fetch('/api/userLog/' + username);
+        const data = await response.json();
+        table(data.climbs);
     } catch (error) {
         console.log(error);
     }
 }
 
-module.exports = yosemiteSort;
+module.exports = {
+    loadLeaderboard,
+    loadClimbLog,
+    yosemiteSort
+};

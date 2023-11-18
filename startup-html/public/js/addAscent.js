@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const ascentForm = document.querySelector("#ascentForm");
     const ascentSubmit = document.querySelector("#ascentSubmit");
-    ascentSubmit.addEventListener("click", (e) => {
+    ascentSubmit.addEventListener("click", async (e) => {
         e.preventDefault();
 
         const name = ascentForm.querySelector("#inputName").value;
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // add to the userLog/userData array
         try {
-            fetch(`/api/userLog/${username}`, {
+            const response = await fetch(`/api/userLog/${username}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -40,10 +40,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     climb: ascentObj
                 })
             });
+            if (!response.ok) {
+                const data = await response.json();
+                console.log(data);
+                return;
+            }
             window.location.href = "profile.html";
 
         } catch (err) {
-            console.log(err);
+            console.error(err);
+            // Handle errors such as network issues or exceptions
         }
 
 

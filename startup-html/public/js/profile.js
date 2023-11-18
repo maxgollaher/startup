@@ -1,5 +1,5 @@
 // load the dom before running the script
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const username = document.getElementById("username");
     const logoutButton = document.getElementById("logoutButton");
 
@@ -17,21 +17,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // pull the stats from the api
-    fetch(`/api/userData/${user.username}`)
-        .then(response => {
-            return response.json()
-        })
-        .then(data => {
-            const topSendElement = document.getElementById("topSend");
-            const topFlashElement = document.getElementById("topFlash");
-            const topOnsightElement = document.getElementById("topOnsight");
-            const totalAscentsElement = document.getElementById("totalAscents");
+    try {
+        const response = await fetch(`/api/userData/${user.username}`);
+        const data = await response.json();
 
-            data["top send"] ? topSendElement.innerText = data["top send"] : topSendElement.innerText = "N/A";
-            data["top flash"] ? topFlashElement.innerText = data["top flash"] : topFlashElement.innerText = "N/A";
-            data["top onsight"] ? topOnsightElement.innerText = data["top onsight"] : topOnsightElement.innerText = "N/A";
-            data["total ascents"] ? totalAscentsElement.innerText = data["total ascents"] : totalAscentsElement.innerText = "N/A";
-        });
+        const topSendElement = document.getElementById("topSend");
+        const topFlashElement = document.getElementById("topFlash");
+        const topOnsightElement = document.getElementById("topOnsight");
+        const totalAscentsElement = document.getElementById("totalAscents");
+
+        data["top send"] ? topSendElement.innerText = data["top send"] : topSendElement.innerText = "N/A";
+        data["top flash"] ? topFlashElement.innerText = data["top flash"] : topFlashElement.innerText = "N/A";
+        data["top onsight"] ? topOnsightElement.innerText = data["top onsight"] : topOnsightElement.innerText = "N/A";
+        data["total ascents"] ? totalAscentsElement.innerText = data["total ascents"] : totalAscentsElement.innerText = "N/A";
+    } catch (error) {
+        console.error("Error fetching user data:", error);
+    }
+    // Call the initMap function
+    initMap();
 });
 
 let map;
@@ -57,7 +60,7 @@ async function initMap() {
             return response.json();
         })
         .then(data => {
-            data.forEach(markerInfo => {
+            data.markers.forEach(markerInfo => {
                 addMarker(markerInfo.position);
             });
         })
@@ -65,9 +68,6 @@ async function initMap() {
             console.error("Error fetching markers:", error);
         })
 }
-
-// Call the initMap function
-initMap();
 
 function addMarker(location) {
     new google.maps.Marker({

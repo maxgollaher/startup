@@ -1,3 +1,4 @@
 *.pem
 startup-html/node_modules/*
 simon/*
+startup-html/dbConfig.json

@@ -1,6 +1,9 @@
 const express = require("express");
-const yosemiteSort = require("./public/js/jsonToObj.js");
+const jsonFuncs = require("./public/js/jsonToObj.js");
+const yosemiteSort = jsonFuncs.yosemiteSort;
 const app = express();
+const DB = require('./database.js');
+
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
 app.listen(port, () => {
@@ -23,216 +26,128 @@ app.use((_req, res) => {
 });
 
 // get leaderboard
-apiRouter.get('/userData', (_req, res) => {
-    res.json(userData);
+apiRouter.get('/userData', async (_req, res) => {
+    const userData = await DB.findAllUserData();
+    res.send(userData);
 });
 
 // add a user
-apiRouter.post('/userData', (req, res) => {
+apiRouter.post('/userData', async (req, res) => {
     const username = req.body.user.username;
-    if (userVerify[username] !== undefined || userData[username] !== undefined) {
+    const userFound = await DB.userExists(username);
+    if (userFound) {
         res.status(400).json({ "msg": "User already exists!" });
         return;
     }
-    userData[username] = {
+    const userData = {
         "name": username,
         "top send": "",
         "top flash": "",
         "top onsight": "",
         "total ascents": 0
     };
-    userVerify[username] = {
+
+    // create the user in the database
+    await DB.addData(userData);
+    await DB.addVerify({
+        username: username,
         email: req.body.user.email,
-        password: req.body.user.password,
-        username: username
-    };
-    markers[username] = [];
-    userLogs[username] = {
-        "climbs": [
+        password: req.body.user.password
+    });
+    await DB.addMarkers({
+        username: username,
+        markers: []
+    });
+    await DB.addLog({
+        username: username,
+        climbs: [
         ]
-    }
+    })
     res.send(userData);
 });
 
 // get a user's stats
-apiRouter.get('/userData/:username', (req, res) => {
+apiRouter.get('/userData/:username', async (req, res) => {
     const user = req.params.username;
-    if (userData[user]) {
-        res.send(userData[user]);
+    const foundUser = await DB.getUserData(user);
+    if (foundUser) {
+        res.send(foundUser);
     } else {
-        res.status(404).send({ msg: "User not found!"});
+        res.status(404).send({ msg: "User not found!" });
     }
 });
 
 
 // get the user's log
-apiRouter.get('/userLog/:username', (req, res) => {
+apiRouter.get('/userLog/:username', async (req, res) => {
     const user = req.params.username;
-    res.send(userLogs[user]);
-
-});
-
-// add a user to the database
-apiRouter.post('/userLog', (req, res) => {
-    const newUser = req.body.user;
-    userLogs.push(newUser);
-    res.send(userLogs);
+    const userLog = await DB.getUserLog(user);
+    res.json(userLog);
 });
 
 // add a climb to the user's log
-apiRouter.post('/userLog/:username', (req, res) => {
+apiRouter.post('/userLog/:username', async (req, res) => {
     const user = req.params.username;
     const newClimb = req.body.climb;
+
+    const userData = await DB.getUserData(user);
 
     // add the field to the user's log if necessary
     switch (newClimb.type) {
         case "Fell/Rested":
-            if (userLogs[user]["top send"] === undefined) {
-                userLogs[user]["top send"] = "";
+            if (userData["top send"] === undefined) {
+                userData["top send"] = "";
             }
             break;
         case "Flash":
-            if (userLogs[user]["top flash"] === undefined) {
-                userLogs[user]["top flash"] = "";
+            if (userData["top flash"] === undefined) {
+                userData["top flash"] = "";
             }
             break;
         case "Onsight":
-            if (userLogs[user]["top onsight"] === undefined) {
-                userLogs[user]["top onsight"] = "";
+            if (userData["top onsight"] === undefined) {
+                userData["top onsight"] = "";
             }
             break;
     }
 
     // update the user's stats
-    if (newClimb.type === "Fell/Rested" && (userData[user]["top send"] === "" || yosemiteSort(newClimb.grade, userData[user]["top send"]) === 1)) {
-        userData[user]["top send"] = newClimb.grade;
-    } else if (newClimb.type === "Flash" && (userData[user]["top flash"] === "" || yosemiteSort(newClimb.grade, userData[user]["top flash"]) === 1)) {
-        userData[user]["top flash"] = newClimb.grade;
-    } else if (newClimb.type === "Onsight" && (userData[user]["top onsight"] === "" || yosemiteSort(newClimb.grade, userData[user]["top onsight"]) === 1)) {
-        userData[user]["top onsight"] = newClimb.grade;
+    if (newClimb.type === "Fell/Rested" && (userData["top send"] === "" || yosemiteSort(newClimb.grade, userData["top send"]) === 1)) {
+        userData["top send"] = newClimb.grade;
+    } else if (newClimb.type === "Flash" && (userData["top flash"] === "" || yosemiteSort(newClimb.grade, userData["top flash"]) === 1)) {
+        userData["top flash"] = newClimb.grade;
+    } else if (newClimb.type === "Onsight" && (userData["top onsight"] === "" || yosemiteSort(newClimb.grade, userData["top onsight"]) === 1)) {
+        userData["top onsight"] = newClimb.grade;
     }
-    userData[user]["total ascents"]++;
-    userLogs[user].climbs.push(newClimb);
+    userData["total ascents"]++;
+    await DB.updateUserData(user, userData);
+    await DB.updateUserLog(user, newClimb);
+    res.send(userData);
 });
 
 // verify a user
-apiRouter.post('/verify', (req, res) => {
+apiRouter.post('/verify', async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    if (userVerify[username] && userVerify[username].password === password) {
-        res.send(userVerify[username]);
+    foundUser = await DB.verifyUser(username, password);
+    if (foundUser) {
+        res.send(foundUser);
     } else {
         res.status(404).send({ "msg": "Username or Password incorrect!" });
     }
 });
 
 
-apiRouter.get('/markers/:username', (req, res) => {
+apiRouter.get('/markers/:username', async (req, res) => {
     const username = req.params.username;
-    res.json(markers[username]);
+    const markers = await DB.getMarkers(username);
+    res.send(markers);
 });
 
-apiRouter.post('/markers', (req, res) => {
+apiRouter.post('/markers', async (req, res) => {
     const username = req.body.username;
-    const userMarkers = markers[username];
-
-    // Create the user's marker array if it doesn't exist
-    if (userMarkers === undefined) {
-        markers[username] = [];
-    }
-    userMarkers.push(req.body.marker);
+    const marker = req.body.marker;
+    await DB.addMarker(username, marker);
 });
 
 
-let userData = {
-    "John Smith": {
-        "name": "John Smith",
-        "top send": "5.9b",
-        "top flash": "5.7",
-        "top onsight": "5.7",
-        "total ascents": 3
-    },
-    "Jane Doe": {
-        "name": "Jane Doe",
-        "top send": "5.9a",
-        "top flash": "5.8",
-        "top onsight": "5.8",
-        "total ascents": 0
-    },
-    "John Doe": {
-        "name": "John Doe",
-        "top send": "5.9c",
-        "top flash": "5.9",
-        "top onsight": "5.9",
-        "total ascents": 0
-    },
-    "Jane Smith": {
-        "name": "Jane Smith",
-        "top send": "5.11",
-        "top flash": "5.10a",
-        "top onsight": "5.10",
-        "total ascents": 0
-    },
-    "Max": {
-        "name": "Max",
-        "top send": "5.12",
-        "top flash": "5.10b",
-        "top onsight": "5.11",
-        "total ascents": 0
-    },
-    "Matt": {
-        "name": "Matt",
-        "top send": "5.13",
-        "top flash": "5.10c",
-        "top onsight": "5.12",
-        "total ascents": 0
-    },
-    "Kai": {
-        "name": "Kai",
-        "top send": "",
-        "top flash": "",
-        "top onsight": "",
-        "total ascents": 0
-    }
-}
-
-
-let userLogs = {
-    "John Smith": {
-        climbs: [
-            {
-                "name": "The Nose",
-                "grade": "5.9b",
-                "send": "send",
-                "date": "2021-07-01"
-            },
-            {
-                "name": "Curious George",
-                "grade": "5.7",
-                "send": "flash",
-                "date": "2021-06-01"
-            },
-            {
-                "name": "Green Monster",
-                "grade": "5.7",
-                "send": "onsight",
-                "date": "2021-05-01"
-            }
-        ]
-    }
-}
-
-let userVerify = {
-    "John Smith": {
-        email: "John@Smith",
-        password: "password",
-        username: "John Smith"
-    }
-}
-
-let markers = {
-    "John Smith": [
-        { position: { lat: 40.25191879272461, lng: -111.64933776855469 } },
-        { position: { lat: 40.26716232299805, lng: -111.63573455810547 } }
-    ]  
-}
