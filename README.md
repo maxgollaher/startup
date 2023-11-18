@@ -78,6 +78,6 @@ This deliverable sets up an api and uses the api to transfer data between differ
 
 For this deliverable, I created a MongoDB database to store data as opposed to static objects in the server.
 
-- [x] MongoDB Atlas database created - done!
-- [x] Endpoints for data - Every endpoint interacts the the DB and stores/updates the data in MongoDB.
-- [x] Stores data in MongoDB - done!
+- [x] **MongoDB Atlas database created** - done!
+- [x] **Endpoints for data** - Every endpoint interacts the the DB and stores/updates the data in MongoDB.
+- [x] **Stores data in MongoDB** - done!
