@@ -67,7 +67,6 @@ apiRouter.use(secureApiRouter);
 
 secureApiRouter.use(async (req, res, next) => {
     authToken = req.cookies[authCookieName];
-    console.log(authToken);
     const user = await DB.getUserByToken(authToken);
     if (user) {
         next();
@@ -171,7 +170,8 @@ function setAuthCookie(res, authToken) {
 }
 
 app.listen(port, () => {
-    console.log(`Listening on port ${port}!`);
+    console.log(`\n\tListening on port ${port}!`);
+    console.log(`\thttp://localhost:${port}\n`)
 });
 
 
