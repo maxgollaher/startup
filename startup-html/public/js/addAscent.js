@@ -17,8 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const send = ascentForm.querySelector("#inputSend").value;
         const date = ascentForm.querySelector("#inputDate").value;
 
-        // eventually get the location data from the googlemaps api
-
         if (name === "" || send === "" || grade === "" || date === "") {
             alert("Please fill out all fields!");
             return;
@@ -48,6 +46,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.log(data);
                 return;
             }
+            
+            // create websocket connection to reload the leaderboard
+            const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+            const ws = new WebSocket(`${protocol}://${window.location.host}/ws`);
+            ws.onopen = () => {
+                ws.send("reload");
+            };
             window.location.href = "profile.html";
 
         } catch (err) {
