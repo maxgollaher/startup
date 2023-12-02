@@ -91,3 +91,12 @@ the user from making api calls until logged in.
 - [x] **Existing User** - Stores all data for the user in the database, retrieves it for each unique login.
 - [x] **Use MongoDB to store credentials** - Stores all data in MongoDB and uses a hash to encrypt sensitive data.
 - [x] **Restricts functionality** - You are unable to make API calls without an authToken as well as visit pages other than `index.html`.
+
+## WebSocket deliverable
+
+For this deliverable I used webSocket to update the leaderboard in realtime.
+
+- [x] **Backend listens for WebSocket connection** - done!
+- [x] **Frontend makes WebSocket connection** - done!
+- [x] **Data sent over WebSocket connection** - Climb data is sent to `leaderboards.html` and messages reload the leaderboard.
+- [x] **WebSocket data displayed** - The leaderboard table updates in real time when another user logs a climb. There is also a display box that displays information about the last climb that was logged since the connection was created.
