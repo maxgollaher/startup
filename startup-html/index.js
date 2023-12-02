@@ -8,7 +8,7 @@ const { peerProxy } = require('./peerProxy.js');
 
 const authCookieName = 'token';
 
-const port = 4000;
+const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
 const jsonFuncs = require("./public/js/jsonToObj.js");
 const yosemiteSort = jsonFuncs.yosemiteSort;

@@ -50,12 +50,17 @@ document.addEventListener("DOMContentLoaded", () => {
             // create websocket connection to reload the leaderboard
             const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
             const ws = new WebSocket(`${protocol}://${window.location.host}/ws`);
-            ws.onopen = () => {
-                ws.send(JSON.stringify({
+            ws.onopen = async () => {
+                await ws.send(JSON.stringify({
                     climb: ascentObj
                 }));
+                ws.close();
             };
-            window.location.href = "profile.html";
+
+            // redirect to the profile page
+            ws.onclose = () => {
+                window.location.href = "./profile.html";
+            }
 
         } catch (err) {
             console.error(err);

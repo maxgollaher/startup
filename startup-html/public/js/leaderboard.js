@@ -6,6 +6,7 @@ function createWebSocket() {
 
     ws.onopen = () => {
         loadLeaderboard();
+        console.log("WebSocket connection opened.");
         document.getElementById("webSocket").innerText    = "Waiting for new climbs...";
     };
 
@@ -14,6 +15,7 @@ function createWebSocket() {
         const socketElement = document.getElementById("webSocket");
 
         const ascentData = msg.climb;
+        console.log(`New climb: ${ascentData.name} ${ascentData.grade} ${ascentData.type}`);
         const climbMsg = `${ascentData.name} just logged a ${ascentData.grade} ${ascentData.type}!!`;
 
         socketElement.innerText = climbMsg;
@@ -24,6 +26,7 @@ function createWebSocket() {
 
     ws.onclose = () => {
         ws.close();
+        console.log("WebSocket connection closed.");
         document.getElementById("webSocket").innerText    = "Connection closed.";
     };
 }
