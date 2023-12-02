@@ -46,12 +46,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.log(data);
                 return;
             }
-            
+
             // create websocket connection to reload the leaderboard
             const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
             const ws = new WebSocket(`${protocol}://${window.location.host}/ws`);
             ws.onopen = () => {
-                ws.send("reload");
+                ws.send(JSON.stringify({
+                    climb: ascentObj
+                }));
             };
             window.location.href = "profile.html";
 
@@ -71,12 +73,15 @@ async function initMap() {
     // Import the necessary libraries
     const { Map } = await google.maps.importLibrary("maps");
 
-    // Create the map
-    map = new Map(document.getElementById("map"), {
+    const mapOptions = {
         zoom: 14,
         center: center,
-        mapId: "DEMO_MAP_ID",
-    });
+        mapId: "HEAT_MAP",
+        mapTypeId: google.maps.MapTypeId.HYBRID,
+    };
+
+    // Create the map
+    map = new Map(document.getElementById("map"), mapOptions);
 
     map.addListener('click', function (event) {
         addMarker(event.latLng);

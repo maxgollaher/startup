@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
-        // redirect to login page if not logged in
+    // redirect to login page if not logged in
     const user = localStorage.getItem("user");
     if (!user) {
         window.location.href = "index.html";
@@ -63,12 +63,16 @@ async function initMap() {
     // Import the necessary libraries
     const { Map } = await google.maps.importLibrary("maps");
 
-    // Create the map
-    map = new Map(document.getElementById("map"), {
+
+    const mapOptions = {
         zoom: 14,
         center: center,
         mapId: "HEAT_MAP",
-    });
+        mapTypeId: google.maps.MapTypeId.HYBRID,
+    };
+
+    // Create the map
+    map = new Map(document.getElementById("map"), mapOptions);
 
     // get the list of markers from the api
     const username = localStorage.getItem("user");

@@ -38,9 +38,10 @@ header {
   border: thin solid #343a40;
   border-radius: 0.5rem;
   padding: 1rem;
-  background-color: #343a40;
+  background-color: rgba(52, 58, 64, 0.5);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
   color: #f8f9fa;
+  backdrop-filter: blur(8px);
 }
 
 .hover {
@@ -114,6 +115,11 @@ header {
   right: 0;
   bottom: 10px;
   padding-bottom: 50px;
+}
+
+.grid-rows {
+  grid-template-columns: none !important;
+  grid-template-rows: repeat(auto-fit, minmax(200px, 1fr)) !important;
 }
 
 .container-sm {

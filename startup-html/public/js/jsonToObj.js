@@ -1,20 +1,92 @@
 // Loads a JSON file into an object
 // that can be used to instantiate a table
+let fullData = [];
+const pageSize = 10;
+let currentPage = 0;
 let sortDirection = 1;
 
-function table(data) {
+function table(data, defaultSort = false) {
     if (!!data && data.length >= 1) {
-        currentData = data;
-        const headers = parseHeader(data);
-        const tableElement = generateTable(headers, data);
+        fullData = data; // Store the full dataset
+
+        const headers = parseHeader(fullData);
+        const tableElement = generateTable(headers, fullData.slice(0, pageSize)); // Display the first page
         const output = document.getElementById("jsonTable");
 
         removeAllChildNodes(output);
         output.appendChild(tableElement);
+        output.appendChild(createPreviousButton());
+        output.appendChild(createNextButton());
+
+        if (defaultSort) {
+            // Sort by last column by default
+            const lastColumnHeader = output.querySelector('th:last-child');
+            if (lastColumnHeader) {
+                sortTable(lastColumnHeader);
+            }
+        }
     } else {
         outputData("invalid input", data);
     }
 }
+
+function createNextButton() {
+    let nextButton = document.createElement("button");
+    nextButton.innerText = "Next";
+    nextButton.classList.add("btn", "btn-primary", "m-2");
+    nextButton.addEventListener("click", showNext); // Use addEventListener to bind click event
+    return nextButton;
+}
+
+function createPreviousButton() {
+    let previousButton = document.createElement("button");
+    previousButton.innerText = "Previous";
+    previousButton.classList.add("btn", "btn-primary", "m-2");
+    previousButton.addEventListener("click", showPrevious); // Use addEventListener to bind click event
+    return previousButton;
+}
+
+function showNext() {
+    const totalElements = fullData.length;
+    const totalPages = Math.ceil(totalElements / pageSize);
+
+    currentPage++;
+    if (currentPage >= totalPages) {
+        currentPage = totalPages - 1;
+    }
+
+    const startIndex = currentPage * pageSize;
+    const endIndex = Math.min(startIndex + pageSize, totalElements);
+
+    const displayedData = fullData.slice(startIndex, endIndex);
+    regenerateTable(displayedData);
+}
+
+function showPrevious() {
+    currentPage--;
+    if (currentPage < 0) {
+        currentPage = 0;
+    }
+
+    const startIndex = currentPage * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    const displayedData = fullData.slice(startIndex, endIndex);
+    regenerateTable(displayedData);
+}
+
+function regenerateTable(data) {
+    const output = document.getElementById("jsonTable");
+
+    removeAllChildNodes(output);
+
+    const headers = parseHeader(fullData);
+    const tableElement = generateTable(headers, data);
+    output.appendChild(tableElement);
+    output.appendChild(createPreviousButton());
+    output.appendChild(createNextButton());
+}
+
 
 function parseHeader(data) {
     let headers = [];
@@ -82,11 +154,11 @@ function sortTable(column) {
 
     let changedData;
     if (attr === "grade" || attr === "top send" || attr === "top flash" || attr === "top onsight") {
-        changedData = currentData.sort(function (a, b) {
+        changedData = fullData.sort(function (a, b) {
             return yosemiteSort(a[attr], b[attr]) * sortDirection;
         });
     } else {
-        changedData = currentData.sort(function (a, b) {
+        changedData = fullData.sort(function (a, b) {
             return a[attr] > b[attr] ? sortDirection : b[attr] > a[attr] ? -sortDirection : 0;
         });
     }
@@ -115,22 +187,22 @@ function yosemiteSort(a, b) {
     return 0;
 }
 
-async function loadLeaderboard() {
+async function loadLeaderboard(defaultSort=true) {
     try {
         const response = await fetch('/api/userData');
         const data = await response.json();
-        table(Object.values(data));
+        table(Object.values(data), defaultSort);
     } catch (error) {
         console.log(error);
     }
 }
 
-async function loadClimbLog() {
+async function loadClimbLog(defaultSort=true) {
     const username = localStorage.getItem("user");
     try {
         const response = await fetch('/api/userLog/' + username);
         const data = await response.json();
-        table(data.climbs);
+        table(data.climbs, defaultSort);
     } catch (error) {
         console.log(error);
     }
@@ -139,5 +211,7 @@ async function loadClimbLog() {
 module.exports = {
     loadLeaderboard,
     loadClimbLog,
-    yosemiteSort
+    yosemiteSort,
+    showNext,
+    showPrevious
 };

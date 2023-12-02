@@ -9,9 +9,6 @@
   <link href="./css/styles.css" rel="stylesheet" />
   <link rel="icon" href="images/logo.png" />
   <script src="js/jsonToObj.js"></script>
-  <script>
-    loadLeaderboard();
-  </script>
   <script src="js/loadAssets.js"></script>
   <script src="js/leaderboard.js"></script>
 </head>
@@ -20,10 +17,14 @@
   <header></header>
 
   <main class="bg-image d-grid">
-    <div class="container">
+    <div class="container grid-rows">
       <div class="box">
         <h2>Leaderboards</h2>
         <div id="jsonTable"></div>
+      </div>
+      <div class="box">
+        <h2>Recent Updates</h2>
+        <p id="webSocket"></p>
       </div>
     </div>
     <footer></footer>
