@@ -44,7 +44,7 @@ export function RegisterForm() {
             }
 
             localStorage.setItem("user", username);
-            window.location.href = "profile.html";
+            window.location.href = "profile";
         } catch (err) {
             console.log(err);
         }

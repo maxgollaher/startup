@@ -6,9 +6,10 @@ import './index.css';
 import { Home } from './home/Home';
 import { Profile } from './profile/Profile';
 import { Leaderboards } from './leaderboards/LeaderBoards';
+import { AddAscent } from './add-ascent/AddAscent';
+
 
 function App() {
-
   return (
     <BrowserRouter>
       <body class="bg-dark" data-bs-theme="dark">
@@ -23,6 +24,7 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/leaderboards' element={<Leaderboards />} />
+            <Route path='/add-ascent' element={<AddAscent />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </main>

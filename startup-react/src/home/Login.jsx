@@ -28,7 +28,7 @@ export function LoginForm() {
                 return;
             } else {
                 localStorage.setItem("user", username);
-                window.location.href = "profile.html";
+                window.location.href = "profile";
             }
         } catch (err) {
             console.log(err);
@@ -44,7 +44,7 @@ export function LoginForm() {
             >
                 <h2 class="title">Login</h2>
                 <div class="mb-3">
-                    <input type="email" class="form-control" id="inputEmail" aria-describedby="usernameHelp" autocomplete="username"
+                    <input type="text" class="form-control" id="inputEmail" aria-describedby="usernameHelp" autocomplete="username"
                         placeholder="username" />
                 </div>
                 <div class="mb-3">
