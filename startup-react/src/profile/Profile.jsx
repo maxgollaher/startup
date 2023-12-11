@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { HeatMap } from './HeatMap';
+import { ClimbLog } from './ClimbLog';
 
 export function Profile() {
     const [userData, setUserData] = useState({
@@ -9,6 +10,7 @@ export function Profile() {
         topOnsight: 'N/A',
         totalAscents: 'N/A'
     });
+    const user = localStorage.getItem("user");
 
     const logout = async () => {
         try {
@@ -36,6 +38,9 @@ export function Profile() {
             window.location.href = "/";
             return;
         }
+
+        const main = document.querySelector("main");
+        main.classList.add("d-grid");
 
         const loadStats = async () => {
             const user = localStorage.getItem("user");
@@ -90,10 +95,10 @@ export function Profile() {
                 <div class="box">
                     <h3>Climbing Log</h3>
                     <p>
-                        <a class="btn btn-primary hover" href="add-ascent.html" role="button">Add Ascent</a>
+                        <a class="btn btn-primary hover" href="add-ascent" role="button">Add Ascent</a>
                     </p>
 
-                    <div id="jsonTable"></div>
+                    <ClimbLog apiPath={'/api/userLog/' + user} />
                 </div>
             </div>
 
@@ -101,7 +106,7 @@ export function Profile() {
             <div class="container-fluid">
                 <div class="box">
                     <h3>Climbing Heat Map</h3>
-                    <HeatMap />
+                    <HeatMap markers={true} />
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 
-export function HeatMap() {
+export function HeatMap(props) {
 
     useEffect(() => {
         initMap();
@@ -26,19 +26,25 @@ export function HeatMap() {
         map = new Map(document.getElementById("map"), mapOptions);
 
         // get the list of markers from the api
-        const username = localStorage.getItem("user");
-        fetch(`/api/markers/${username}`)
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                data.markers.forEach(markerInfo => {
-                    addMarker(markerInfo.position);
-                });
-            })
-            .catch(error => {
-                console.error("Error fetching markers:", error);
-            })
+        if (props.markers) {
+            const username = localStorage.getItem("user");
+            fetch(`/api/markers/${username}`)
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    data.markers.forEach(markerInfo => {
+                        addMarker(markerInfo.position);
+                    });
+                })
+                .catch(error => {
+                    console.error("Error fetching markers:", error);
+                })
+        } else {
+            map.addListener('click', function (event) {
+                logLocation(event.latLng);
+            });
+        }
     }
 
     function addMarker(location) {
@@ -46,6 +52,35 @@ export function HeatMap() {
             position: location,
             map: map
         });
+    }
+
+    function logLocation(location) {
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map
+        });
+
+        // extract marker data
+        const markerData = {
+            position: marker.getPosition().toJSON()
+        };
+
+        const username = localStorage.getItem("user");
+
+        try {
+            fetch(`/api/markers`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username: username,
+                    marker: markerData
+                })
+            });
+        } catch (err) {
+            console.error(err);
+        }
     }
 
 

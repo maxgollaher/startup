@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
@@ -10,13 +10,15 @@ import { AddAscent } from './add-ascent/AddAscent';
 
 
 function App() {
+  const user = localStorage.getItem("user");
+
   return (
     <BrowserRouter>
       <body class="bg-dark" data-bs-theme="dark">
         <Header>
-          <NavLink to='/'>Home</NavLink>
-          <NavLink to='/profile'>Profile</NavLink>
-          <NavLink to='/leaderboards'>Leaderboards</NavLink>
+          {!user ? <NavLink to='/'>Login</NavLink> : <></>}
+          {user ? <NavLink to='/profile'>Profile</NavLink> : <></>}
+          {user ? <NavLink to='/leaderboards'>Leaderboards</NavLink> : <></>}
         </Header>
 
         <main class="container-fluid bg-image">
