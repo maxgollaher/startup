@@ -27,9 +27,10 @@ export function Leaderboards() {
 
         ws.onmessage = async (event) => {
             const msg = JSON.parse(await event.data.text());
+            const username = msg.username;
             const ascentData = msg.climb;
             console.log(`New climb: ${ascentData.name} ${ascentData.grade} ${ascentData.type}`);
-            const climbMsg = `${ascentData.name} just logged a ${ascentData.grade} ${ascentData.type}!!`;
+            const climbMsg = `${username} just logged a ${ascentData.grade} ${ascentData.type}!!`;
             setSocketText(climbMsg);
             reloadLeaderboard();
         };

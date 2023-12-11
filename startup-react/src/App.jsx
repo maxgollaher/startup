@@ -10,7 +10,8 @@ import { AddAscent } from './add-ascent/AddAscent';
 
 
 function App() {
-  const user = localStorage.getItem("user");
+  let user = localStorage.getItem("user");
+  const [isIndex, setIsIndex] = React.useState(window.location.pathname === '/');
 
   return (
     <BrowserRouter>
@@ -21,7 +22,7 @@ function App() {
           {user ? <NavLink to='/leaderboards'>Leaderboards</NavLink> : <></>}
         </Header>
 
-        <main class="container-fluid bg-image">
+        <main class="container-fluid bg-image" style={{ padding: '0' }}>
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/profile' element={<Profile />} />
@@ -29,9 +30,10 @@ function App() {
             <Route path='/add-ascent' element={<AddAscent />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
+          {!isIndex ? <Footer /> : <></>}
         </main>
 
-        <Footer />
+        {isIndex ? <Footer /> : <></>}
       </body>
     </BrowserRouter>
   );
@@ -67,19 +69,52 @@ function Header(props) {
 
 
 function Footer() {
+  const [isIndex, setIsIndex] = React.useState(window.location.pathname === '/');
+
+  function renderFooter() {
+    if (isIndex) {
+      return (
+        <div className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-muted-top">
+          <div className="col-md-4 d-flex align-items-center" style={{ paddingLeft: '1em' }}>
+            <a href="https://github.com/maxgollaher/startup" className="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+              <span className="mb-3 mb-md-0 text-light">Github Repo</span>
+            </a>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <footer class="align-end">
+          <div class="box bg-dark mb-0">
+            <p class="text-muted">&copy; 2023 Climber's Crag, Inc. All rights reserved.</p>
+          </div>
+        </footer>
+      );
+    }
+  }
+
   return (
-    <div className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-muted-top">
-      <div className="col-md-4 d-flex align-items-center" style={{ paddingLeft: '1em' }}>
-        <a href="https://github.com/maxgollaher/startup" className="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-          <span className="mb-3 mb-md-0 text-light">Github Repo</span>
-        </a>
-      </div>
-    </div>
+    <>
+      {renderFooter()}
+    </>
   );
 }
 
 function NotFound() {
-  return <main className='container-fluid bg-secondary text-center'>404: Return to sender. Address unknown.</main>;
+
+  useEffect(() => {
+    const main = document.querySelector("main");
+    main.classList.add("d-grid");
+  }, []);
+
+
+  return (
+    <div className='container grid-rows'>
+      <div className="box box-v-center">
+        <h1>404: Page Not Found</h1>
+      </div>
+    </div>
+  );
 }
 
 export default App;

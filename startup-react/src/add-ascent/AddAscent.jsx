@@ -28,7 +28,7 @@ export function AddAscent() {
 
         const username = localStorage.getItem("user");
         const ascentObj = {
-            name: username,
+            name: name,
             grade: grade,
             type: send,
             date: date
@@ -56,6 +56,7 @@ export function AddAscent() {
             const ws = new WebSocket(`${protocol}://${window.location.host}/ws`);
             ws.onopen = async () => {
                 await ws.send(JSON.stringify({
+                    username: username,
                     climb: ascentObj
                 }));
                 ws.close();

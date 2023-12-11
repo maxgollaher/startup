@@ -100,3 +100,13 @@ For this deliverable I used webSocket to update the leaderboard in realtime.
 - [x] **Frontend makes WebSocket connection** - done!
 - [x] **Data sent over WebSocket connection** - Climb data is sent to `leaderboards.html` and messages reload the leaderboard.
 - [x] **WebSocket data displayed** - The leaderboard table updates in real time when another user logs a climb. There is also a display box that displays information about the last climb that was logged since the connection was created.
+
+## React deliverable
+
+For this deliverable, I converted the application to use React.
+
+- [x] **Bundled using Vite** - done!
+- [x] **React Components** - all pages are made up of react components
+- [x] **Router** - routing between all pages
+- [x] **Hooks** - all hooks are set up
+
